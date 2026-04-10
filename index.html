@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FitTech Services — Gym Website + ERP at 20% Market Price</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#060606;--dark:#0c0c0c;--card:#141414;
+  --border:#222;--border2:#2a2a2a;
+  --gold:#e8a020;--gold2:#f5c04a;--gold-dim:rgba(232,160,32,.12);
+  --white:#f0ede8;--muted:#666;--muted2:#444;
+  --font-d:'Syne',sans-serif;
+  --font-c:'Barlow Condensed',sans-serif;
+  --font-b:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-b);font-weight:300;overflow-x:hidden}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 48px;
+  background:rgba(6,6,6,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{width:52px;height:26px}
+.logo-text{display:flex;flex-direction:column;gap:1px}
+.logo-name{font-family:var(--font-d);font-size:16px;color:var(--white);letter-spacing:-.3px;line-height:1}
+.logo-name span{color:var(--gold)}
+.logo-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  background:var(--gold);color:var(--black);
+  padding:10px 24px;font-size:12px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background .2s;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.nav-cta:hover{background:var(--gold2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--white);display:block}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:140px 48px 80px;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;
+  opacity:.25;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;top:-200px;left:-200px;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;bottom:-100px;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--border2);padding:6px 14px;
+  margin-bottom:28px;width:fit-content;
+  opacity:0;animation:up .5s .1s forwards;
+}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-eyebrow span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.hero-title{
+  font-family:var(--font-c);
+  font-size:clamp(56px,9vw,130px);
+  font-weight:800;
+  line-height:.92;
+  letter-spacing:-1px;
+  color:var(--white);
+  margin-bottom:8px;
+  opacity:0;animation:up .5s .25s forwards;
+}
+.hero-title .gold{color:var(--gold)}
+.hero-title .outline{
+  -webkit-text-stroke:1.5px rgba(255,255,255,.3);
+  color:transparent;
+}
+.hero-sub-title{
+  font-family:var(--font-c);
+  font-size:clamp(32px,5vw,72px);
+  font-weight:700;
+  color:var(--muted);
+  letter-spacing:-1px;
+  margin-bottom:28px;
+  opacity:0;animation:up .5s .4s forwards;
+}
+.hero-body{
+  font-size:17px;line-height:1.7;color:var(--muted);
+  max-width:520px;margin-bottom:40px;
+  opacity:0;animation:up .5s .55s forwards;
+}
+.hero-body strong{color:var(--white);font-weight:500}
+.hero-actions{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  opacity:0;animation:up .5s .7s forwards;
+}
+.btn-gold{
+  background:var(--gold);color:var(--black);
+  padding:16px 36px;font-size:13px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;display:inline-block;
+  transition:background .2s,transform .15s;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-ghost{
+  color:var(--white);border:1px solid var(--border2);
+  padding:15px 36px;font-size:13px;letter-spacing:1.5px;
+  text-transform:uppercase;text-decoration:none;display:inline-block;
+  transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-price-badge{
+  position:absolute;right:48px;top:50%;transform:translateY(-50%);
+  text-align:center;
+  opacity:0;animation:up .6s .9s forwards;
+}
+.price-circle{
+  width:180px;height:180px;border-radius:50%;
+  border:1px solid var(--border2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--card);
+  position:relative;
+}
+.price-circle::before{
+  content:'';position:absolute;inset:-1px;border-radius:50%;
+  background:conic-gradient(var(--gold) 0deg 72deg,transparent 72deg);
+  z-index:-1;
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.price-circle::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--card);z-index:-1}
+.price-num{font-family:var(--font-d);font-size:48px;color:var(--gold);line-height:1}
+.price-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.price-sub{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px}
+
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TICKER ── */
+.ticker{
+  background:var(--gold);padding:14px 0;overflow:hidden;
+  white-space:nowrap;position:relative;z-index:2;
+}
+.ticker-inner{display:inline-flex;animation:ticker 20s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  font-family:var(--font-c);font-size:16px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--black);padding:0 32px;
+}
+.ticker-dot{color:rgba(0,0,0,.3);margin-right:32px}
+
+/* ── SECTIONS ── */
+section{padding:110px 48px;position:relative;z-index:1}
+.s-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.s-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.s-title{font-family:var(--font-c);font-size:clamp(36px,5vw,68px);font-weight:800;line-height:.95;letter-spacing:-1px;margin-bottom:20px}
+.s-body{font-size:16px;line-height:1.8;color:var(--muted);max-width:500px}
+.divider-line{width:1px;height:60px;background:var(--border2);margin:0 auto}
+
+/* ── PROBLEM SECTION ── */
+.problem{background:var(--dark)}
+.problem-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.pain-list{display:flex;flex-direction:column;gap:0}
+.pain-item{
+  display:flex;align-items:flex-start;gap:20px;
+  padding:24px 0;border-bottom:1px solid var(--border);
+}
+.pain-item:last-child{border-bottom:none}
+.pain-num{font-family:var(--font-d);font-size:32px;color:var(--border2);flex-shrink:0;line-height:1;transition:color .2s}
+.pain-item:hover .pain-num{color:var(--gold)}
+.pain-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:5px}
+.pain-sub{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── WHAT WE BUILD ── */
+.what{background:var(--black)}
+.what-inner{max-width:1200px;margin:0 auto}
+.what-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.feat-card{
+  background:var(--card);padding:36px 28px;
+  border:1px solid var(--border);
+  transition:border-color .25s,background .25s;
+  position:relative;overflow:hidden;
+}
+.feat-card:hover{border-color:var(--gold);background:#0f0c00}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left;
+}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-icon{width:40px;height:40px;margin-bottom:20px;color:var(--gold)}
+.feat-title{font-size:18px;font-weight:600;color:var(--white);margin-bottom:10px;font-family:var(--font-d)}
+.feat-body{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* ── PRICING ── */
+.pricing{background:var(--dark)}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-header{text-align:center;margin-bottom:60px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:40px}
+.price-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:40px 32px;position:relative;transition:border-color .2s;
+}
+.price-card:hover{border-color:var(--gold)}
+.price-card.featured{
+  border-color:var(--gold);background:#0f0c00;
+  transform:translateY(-8px);
+}
+.price-card.featured::before{
+  content:'MOST POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:var(--black);
+  font-size:9px;letter-spacing:2px;font-weight:700;
+  padding:4px 14px;
+}
+.price-tier{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.price-amount{font-family:var(--font-c);font-size:56px;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
+.price-amount sup{font-size:24px;color:var(--gold)}
+.price-desc{font-size:12px;color:var(--muted);margin-bottom:28px;line-height:1.5}
+.price-feats{list-style:none;margin-bottom:32px}
+.price-feats li{font-size:13px;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center}
+.price-feats li:last-child{border-bottom:none}
+.check{color:var(--gold);font-size:14px;flex-shrink:0}
+.price-btn{
+  display:block;text-align:center;padding:13px;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border2);color:var(--white);
+  transition:all .2s;font-family:var(--font-b);cursor:pointer;background:transparent;width:100%;
+}
+.price-card.featured .price-btn{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:600}
+.price-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.pricing-note{text-align:center;font-size:13px;color:var(--muted)}
+.pricing-note span{color:var(--gold)}
+
+/* ── HOW IT WORKS ── */
+.how{background:var(--black)}
+.how-inner{max-width:1000px;margin:0 auto}
+.how-header{text-align:center;margin-bottom:70px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.steps::before{
+  content:'';position:absolute;top:36px;left:10%;right:10%;height:1px;
+  background:linear-gradient(to right,transparent,var(--border2) 20%,var(--border2) 80%,transparent);
+}
+.step{text-align:center;padding:0 20px;position:relative}
+.step-num{
+  width:72px;height:72px;border-radius:50%;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;background:var(--card);
+  font-family:var(--font-d);font-size:24px;color:var(--gold);
+  position:relative;z-index:1;
+}
+.step-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
+.step-body{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── SOCIAL PROOF / RESULTS ── */
+.results{background:var(--dark)}
+.results-inner{max-width:1200px;margin:0 auto}
+.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:60px}
+.result-card{background:var(--card);border:1px solid var(--border);padding:32px 24px;text-align:center}
+.result-num{font-family:var(--font-c);font-size:52px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:6px}
+.result-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  background:var(--gold);padding:100px 48px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'FITTECH';
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-c);font-size:220px;font-weight:800;
+  color:rgba(0,0,0,.06);letter-spacing:-4px;white-space:nowrap;pointer-events:none;
+}
+.cta-final h2{font-family:var(--font-c);font-size:clamp(40px,7vw,90px);font-weight:800;color:var(--black);line-height:.95;margin-bottom:16px;letter-spacing:-2px;position:relative}
+.cta-final p{font-size:17px;color:rgba(0,0,0,.6);margin-bottom:40px;position:relative}
+.cta-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--black);color:var(--white);
+  padding:18px 42px;font-size:14px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;transition:background .2s;position:relative;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+}
+.cta-wa:hover{background:#111}
+.cta-wa svg{width:20px;height:20px;fill:var(--gold)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark);padding:48px;
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:24px;
+}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo svg{width:44px;height:22px}
+.footer-logo-name{font-family:var(--font-d);font-size:14px;color:var(--white)}
+.footer-logo-name span{color:var(--gold)}
+.footer-copy{font-size:11px;color:var(--muted);text-align:center}
+.footer-links{display:flex;gap:24px;justify-content:flex-end}
+.footer-links a{font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+
+/* ── MOBILE MENU ── */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.98);flex-direction:column;align-items:center;justify-content:center}
+.mobile-menu.open{display:flex}
+.mobile-menu-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer}
+.mobile-menu a{font-family:var(--font-c);font-size:44px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:12px 40px;transition:color .2s;display:block;text-align:center}
+.mobile-menu a:hover{color:var(--gold)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero{padding:120px 20px 60px}
+  .hero-price-badge{display:none}
+  section{padding:70px 20px}
+  .problem-inner,.what-header{grid-template-columns:1fr;gap:40px}
+  .features-grid,.pricing-grid{grid-template-columns:1fr}
+  .price-card.featured{transform:none}
+  .steps{grid-template-columns:1fr 1fr;gap:32px}
+  .steps::before{display:none}
+  .results-grid{grid-template-columns:1fr 1fr}
+  footer{grid-template-columns:1fr;text-align:center}
+  .footer-links{justify-content:center}
+  .cta-final{padding:70px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
+      <rect x="49" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
+      <polyline points="4,13 9,13 13,4 17,22 21,8 25,18 29,13 48,13" fill="none" stroke="#e8a020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-name">Fit<span>Tech</span></div>
+      <div class="logo-tag">Services</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#what">What We Build</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#how">How It Works</a></li>
+  </ul>
+  <a href="https://wa.me/917083328631" class="nav-cta" target="_blank">Get Your Site →</a>
+  <button class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
+  <a href="#problem" onclick="closeMenu()">Problem</a>
+  <a href="#what" onclick="closeMenu()">What We Build</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#how" onclick="closeMenu()">How It Works</a>
+  <a href="https://wa.me/917083328631" onclick="closeMenu()" style="color:var(--gold)">Get Your Site →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div style="position:relative;z-index:2;max-width:800px">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Gym Website + Member ERP — Done For You</span>
+    </div>
+
+    <h1 class="hero-title">
+      YOUR GYM<br>
+      DESERVES A<br>
+      <span class="gold">WEBSITE.</span>
+    </h1>
+
+    <p class="hero-sub-title">We build it for 20% of<br>what others charge.</p>
+
+    <p class="hero-body">
+      <strong>Professional gym website + full member management system</strong> — expiry alerts, payment tracking, WhatsApp reminders — delivered in 5 days. Most agencies charge ₹15,000+. We charge <strong>₹3,000.</strong> Yes, really.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/917083328631" class="btn-gold" target="_blank">WhatsApp Us Now →</a>
+      <a href="#what" class="btn-ghost">See What You Get</a>
+    </div>
+  </div>
+
+  <div class="hero-price-badge">
+    <div class="price-circle">
+      <div class="price-num">20%</div>
+      <div class="price-label">of market price</div>
+    </div>
+    <p class="price-sub">Others charge ₹15K+<br>We charge ₹3,000</p>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Website in 5 Days <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Member Management System <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Expiry Reminders <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">WhatsApp Integration <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Starting at ₹3,000 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Free Hosting for 1 Year <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">100+ Gyms Can't Be Wrong <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Website in 5 Days <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Member Management System <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Expiry Reminders <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">WhatsApp Integration <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Starting at ₹3,000 <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Free Hosting for 1 Year <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">100+ Gyms Can't Be Wrong <span class="ticker-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="problem-inner">
+    <div>
+      <p class="s-eyebrow">The Real Problem</p>
+      <h2 class="s-title">Your gym is great.<br>Nobody<br><span style="color:var(--gold)">knows it.</span></h2>
+      <p class="s-body" style="margin-top:20px">Every day people Google "gym near me" and scroll past you — because you don't have a website. Meanwhile your member data is scattered across WhatsApp and paper registers. We fix both. In 5 days. For ₹3,000.</p>
+    </div>
+    <div class="pain-list">
+      <div class="pain-item">
+        <div class="pain-num">01</div>
+        <div>
+          <div class="pain-title">No website = invisible on Google</div>
+          <div class="pain-sub">When someone searches "gym in [your city]" you simply don't exist. That's members walking into your competitor instead.</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">02</div>
+        <div>
+          <div class="pain-title">Members expire — you find out too late</div>
+          <div class="pain-sub">You realize a member hasn't paid only when you see them walk in. By then they've already decided to quit. Automatic reminders fix this.</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">03</div>
+        <div>
+          <div class="pain-title">Agencies want ₹15,000–₹50,000</div>
+          <div class="pain-sub">Most web agencies treat gyms like big corporations. Big quotes, slow delivery, zero gym domain knowledge. We know exactly what a gym needs.</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">04</div>
+        <div>
+          <div class="pain-title">Paper registers lose data</div>
+          <div class="pain-sub">Member left? Plan still running? Payment collected? Nobody knows. A digital system makes this zero-effort to track.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILD -->
+<section class="what" id="what">
+  <div class="what-inner">
+    <div class="what-header">
+      <div>
+        <p class="s-eyebrow">What You Get</p>
+        <h2 class="s-title">Two products.<br>One crazy<br><span style="color:var(--gold)">low price.</span></h2>
+      </div>
+      <p class="s-body">Every gym we work with gets a professional website AND a full member management system. Not one or the other. Both. At a price that makes agencies cry.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="M14 32l-2 4M26 32l2 4M10 36h20"/><path d="M4 24h32"/></svg>
+        <div class="feat-title">Premium Website</div>
+        <div class="feat-body">Mobile-first, lightning fast, professional design. Shows your gym's equipment, plans, location, WhatsApp button. Free hosting for 1 year on Vercel.</div>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="14" r="6"/><path d="M4 34c0-6.6 5.4-12 12-12"/><path d="M28 22v12M22 28h12"/></svg>
+        <div class="feat-title">Member Management</div>
+        <div class="feat-body">Add members, set plans, track payments, mark active/inactive. Full dashboard with stats. Works on mobile and laptop. No app to install.</div>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="14"/><path d="M20 12v8l6 4"/><path d="M8 8l4 4"/></svg>
+        <div class="feat-title">Expiry Reminders</div>
+        <div class="feat-body">Dashboard shows who expires in 3 and 5 days. One-tap WhatsApp reminder sent directly to the member. Never lose a renewal again.</div>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="8" width="28" height="24" rx="3"/><path d="M14 8v24M6 16h28M6 24h8"/></svg>
+        <div class="feat-title">Payment History</div>
+        <div class="feat-body">Every payment recorded automatically. See who paid, how much, which plan. Full history per member. Total revenue at a glance.</div>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4z"/><path d="M12 20l6 6 10-12"/></svg>
+        <div class="feat-title">Cardio / Non-Cardio Split</div>
+        <div class="feat-body">Dashboard shows cardio vs non-cardio members separately. Filter your full member list by plan type instantly. Built for how gyms actually work.</div>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="22" height="20" rx="3"/><path d="M26 16l10-6v20l-10-6"/></svg>
+        <div class="feat-title">WhatsApp Button</div>
+        <div class="feat-body">Website has a floating WhatsApp button. Members message you directly. New members see your site and contact you in one tap. Zero friction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <p class="s-eyebrow" style="justify-content:center">Pricing</p>
+      <h2 class="s-title" style="text-align:center">Transparent.<br>Affordable.<br><span style="color:var(--gold)">No surprises.</span></h2>
+      <p style="color:var(--muted);font-size:15px;margin-top:16px">While agencies quote ₹15,000 to ₹50,000 for the same thing — we charge ₹3,000. We keep overhead zero and pass those savings to you.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount"><sup>₹</sup>1,500</div>
+        <div class="price-desc">Website only — perfect to get started</div>
+        <ul class="price-feats">
+          <li><span class="check">✓</span> 5-page professional website</li>
+          <li><span class="check">✓</span> Mobile responsive</li>
+          <li><span class="check">✓</span> WhatsApp & call button</li>
+          <li><span class="check">✓</span> Google Maps embed</li>
+          <li><span class="check">✓</span> Free hosting for 1 year</li>
+          <li><span class="check">✓</span> Delivered in 3 days</li>
+        </ul>
+        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tier">Best Seller</div>
+        <div class="price-amount"><sup>₹</sup>3,000</div>
+        <div class="price-desc">Website + Full Member Management System</div>
+        <ul class="price-feats">
+          <li><span class="check">✓</span> Everything in Starter</li>
+          <li><span class="check">✓</span> Full member ERP system</li>
+          <li><span class="check">✓</span> Expiry reminders (3 & 5 days)</li>
+          <li><span class="check">✓</span> Payment history tracking</li>
+          <li><span class="check">✓</span> Dashboard with live stats</li>
+          <li><span class="check">✓</span> Cardio / Non-Cardio split</li>
+          <li><span class="check">✓</span> WhatsApp reminder per member</li>
+          <li><span class="check">✓</span> Delivered in 5 days</li>
+        </ul>
+        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Premium</div>
+        <div class="price-amount"><sup>₹</sup>3,000 <span style="font-size:20px;color:var(--muted)">+ ₹500/mo</span></div>
+        <div class="price-desc">Everything + monthly maintenance</div>
+        <ul class="price-feats">
+          <li><span class="check">✓</span> Everything in Best Seller</li>
+          <li><span class="check">✓</span> Monthly content updates</li>
+          <li><span class="check">✓</span> New features on request</li>
+          <li><span class="check">✓</span> Priority WhatsApp support</li>
+          <li><span class="check">✓</span> Plan price updates</li>
+          <li><span class="check">✓</span> We handle everything tech</li>
+        </ul>
+        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+      </div>
+    </div>
+    <p class="pricing-note">Market average for similar work: <span>₹15,000 – ₹50,000</span>. You pay <span>₹3,000</span>. That's not a typo.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <p class="s-eyebrow" style="justify-content:center">Process</p>
+      <h2 class="s-title" style="text-align:center">Live in <span style="color:var(--gold)">5 days.</span><br>Zero hassle.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">WhatsApp us</div>
+        <div class="step-body">Send your gym name, photos, plans and pricing. That's all we need to start.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">We build it</div>
+        <div class="step-body">Full website + admin system built in 3–5 days. You get a preview link to review.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">You approve</div>
+        <div class="step-body">Changes? We make them instantly. Happy? We go live. Simple.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">You go live</div>
+        <div class="step-body">Site is deployed free. We hand over the admin panel. Done. You're online.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="results-inner">
+    <div style="text-align:center;margin-bottom:0">
+      <p class="s-eyebrow" style="justify-content:center">By The Numbers</p>
+      <h2 class="s-title" style="text-align:center">Built for gyms.<br>Priced for <span style="color:var(--gold)">real people.</span></h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-num">5</div>
+        <div class="result-label">Days to go live</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">₹3K</div>
+        <div class="result-label">Starting price</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">20%</div>
+        <div class="result-label">Of market price</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">∞</div>
+        <div class="result-label">Free hosting for 1 year</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="cta-final">
+  <h2>STOP LOSING<br>MEMBERS TO<br>GOOGLE.</h2>
+  <p>Your gym deserves to be found. Let's build your website this week.</p>
+  <a href="https://wa.me/917083328631" class="cta-wa" target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Chat on WhatsApp — It's Free
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
+      <rect x="49" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
+      <polyline points="4,13 9,13 13,4 17,22 21,8 25,18 29,13 48,13" fill="none" stroke="#e8a020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="footer-logo-name">Fit<span>Tech</span> Services</div>
+  </div>
+  <p class="footer-copy">© 2026 FitTech Services. Built for gyms. Priced for real people.</p>
+  <div class="footer-links">
+    <a href="#what">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#how">Process</a>
+    <a href="https://wa.me/917083328631">Contact</a>
+  </div>
+</footer>
+
+<script>
+function openMenu(){document.getElementById('mob-menu').classList.add('open');document.body.style.overflow='hidden';}
+function closeMenu(){document.getElementById('mob-menu').classList.remove('open');document.body.style.overflow='';}
+</script>
+</body>
+</html>
