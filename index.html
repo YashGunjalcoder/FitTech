@@ -188,6 +188,20 @@ nav{
 .pain-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:5px}
 .pain-sub{font-size:14px;color:var(--muted);line-height:1.65}
 
+/* ── WORK CARDS ── */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.work-card{
+  background:var(--card);border:1px solid var(--border);padding:34px 28px;
+  display:flex;flex-direction:column;gap:7px;text-decoration:none;
+  transition:border-color .25s,background .25s;position:relative;overflow:hidden;
+}
+.work-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.work-card:hover{border-color:var(--gold);background:#0f0c00}
+.work-card:hover::before{transform:scaleX(1)}
+.work-name{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--white)}
+.work-url{font-size:13.5px;color:var(--muted)}
+.work-go{font-size:13.5px;color:var(--gold);margin-top:14px}
+
 /* ── DOMAIN CHIPS ── */
 .domains{display:flex;flex-wrap:wrap;gap:2px;margin-top:40px}
 .domain-chip{
@@ -279,7 +293,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
   .price-sub{text-align:left}
   .sec,.price-philosophy{padding:70px 20px}
   .split{grid-template-columns:1fr;gap:38px}
-  .features-grid,.pp-points{grid-template-columns:1fr}
+  .features-grid,.pp-points,.work-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr;gap:34px}
   .steps::before{display:none}
   footer{grid-template-columns:1fr;text-align:center;padding:40px 20px}
@@ -308,9 +322,9 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
   </a>
   <ul class="nav-links">
     <li><a href="#gym">Gym software</a></li>
+    <li><a href="#work">Our work</a></li>
     <li><a href="#students">Student lab</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#how">How it works</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://wa.me/917083328631" class="nav-cta" target="_blank" rel="noopener">Talk to us</a>
@@ -322,6 +336,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
 <div class="mobile-menu" id="mob-menu">
   <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close menu">&#10005;</button>
   <a href="#gym" onclick="closeMenu()">Gym software</a>
+  <a href="#work" onclick="closeMenu()">Our work</a>
   <a href="#students" onclick="closeMenu()">Student lab</a>
   <a href="#pricing" onclick="closeMenu()">Pricing</a>
   <a href="#how" onclick="closeMenu()">How it works</a>
@@ -467,8 +482,38 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
   </div>
 </section>
 
+<!-- ══ LIVE WORK ══ -->
+<section class="sec sec-black" id="work">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="div-marker"><span class="div-marker-bar"></span><span>Live work</span></div>
+        <h2 class="s-title">Gyms running<br>on our software<br>right now.</h2>
+      </div>
+      <p class="s-body">Open any of them. Same build, three different gyms, each with their own plans, photos and member system behind the login. This is what yours will look like.</p>
+    </div>
+    <div class="work-grid">
+      <a class="work-card" href="https://sdfitness.vercel.app/" target="_blank" rel="noopener">
+        <span class="work-name">SD Fitness</span>
+        <span class="work-url">sdfitness.vercel.app</span>
+        <span class="work-go">Open the live site</span>
+      </a>
+      <a class="work-card" href="https://pragya-fitness.vercel.app/" target="_blank" rel="noopener">
+        <span class="work-name">Pragya Fitness</span>
+        <span class="work-url">pragya-fitness.vercel.app</span>
+        <span class="work-go">Open the live site</span>
+      </a>
+      <a class="work-card" href="https://prime-fitness-den.vercel.app/" target="_blank" rel="noopener">
+        <span class="work-name">Prime Fitness Den</span>
+        <span class="work-url">prime-fitness-den.vercel.app</span>
+        <span class="work-go">Open the live site</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ══ DIVISION TWO: STUDENTS ══ -->
-<section class="sec sec-black" id="students">
+<section class="sec sec-dark" id="students">
   <div class="wrap">
     <div class="split">
       <div>
@@ -532,7 +577,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
 </section>
 
 <!-- ══ PRICING PHILOSOPHY ══ -->
-<section class="price-philosophy" id="pricing">
+<section class="price-philosophy sec-black" id="pricing">
   <div class="pp-inner">
     <div class="div-marker" style="justify-content:center"><span class="div-marker-bar"></span><span>Pricing</span></div>
     <div class="pp-big">20%</div>
@@ -616,6 +661,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
   <p class="footer-copy">&#169; 2026 FitTech Services &#183; Maharashtra, India</p>
   <div class="footer-links">
     <a href="#gym">Gym software</a>
+    <a href="#work">Our work</a>
     <a href="#students">Student lab</a>
     <a href="#pricing">Pricing</a>
     <a href="https://wa.me/917083328631" target="_blank" rel="noopener">Contact</a>
