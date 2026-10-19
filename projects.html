@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Project topics — FitTech Student Lab</title>
+<meta name="description" content="30 final-year project topics for CS, IT and AI/ML students. Each one based on a real technique, scoped to be buildable in a semester, mentored by us."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --black:#060606;--dark:#0c0c0c;--card:#141414;
+  --border:#222;--border2:#2a2a2a;
+  --gold:#e8a020;--gold2:#f5c04a;
+  --white:#f0ede8;--muted:#8a8578;
+  --font-d:'Syne',sans-serif;--font-c:'Barlow Condensed',sans-serif;--font-b:'Barlow',sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{background:#060606;scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-b);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+header{padding:56px 48px 40px;border-bottom:1px solid var(--border);background:var(--dark);position:relative;overflow:hidden}
+header::after{content:'';position:absolute;top:-180px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.08),transparent 70%);pointer-events:none}
+.hwrap{max-width:1180px;margin:0 auto;position:relative;z-index:1}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:13.5px;margin-bottom:26px;transition:color .2s}
+.back:hover{color:var(--gold)}
+.div-marker{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.div-marker-bar{width:30px;height:2px;background:var(--gold)}
+.div-marker span{font-size:13px;color:var(--gold)}
+h1{font-family:var(--font-c);font-size:clamp(40px,6.5vw,78px);font-weight:800;line-height:.96;letter-spacing:-1.5px;margin-bottom:18px}
+.lede{font-size:16.5px;line-height:1.8;color:var(--muted);max-width:68ch}
+.lede strong{color:var(--white);font-weight:500}
+
+.note{
+  margin-top:28px;border:1px solid var(--border2);border-left:3px solid var(--gold);
+  background:var(--card);padding:22px 26px;max-width:760px;
+}
+.note p{font-size:14.5px;color:var(--muted);line-height:1.75}
+
+/* FILTERS */
+.filters{max-width:1180px;margin:0 auto;padding:30px 48px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filter-label{font-size:13px;color:var(--muted);margin-right:6px}
+.chip{
+  background:var(--card);border:1px solid var(--border2);color:var(--muted);
+  padding:8px 16px;font-size:13.5px;cursor:pointer;font-family:var(--font-b);transition:all .18s;
+}
+.chip:hover{border-color:var(--muted);color:var(--white)}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#000;font-weight:600}
+.count{max-width:1180px;margin:20px auto 0;padding:0 48px;font-size:13.5px;color:var(--muted)}
+
+/* GRID */
+.grid{max-width:1180px;margin:0 auto;padding:22px 48px 90px;display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.proj{background:var(--card);border:1px solid var(--border);padding:28px 26px;display:flex;flex-direction:column;gap:11px;transition:border-color .22s,background .22s;position:relative}
+.proj:hover{border-color:var(--gold);background:#0f0c00}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.proj-n{font-family:var(--font-d);font-size:13px;color:var(--border2);font-weight:700;flex-shrink:0;padding-top:4px}
+.proj h3{font-family:var(--font-d);font-size:19.5px;font-weight:700;color:var(--white);line-height:1.3}
+.proj-what{font-size:14.5px;color:var(--muted);line-height:1.7}
+.proj-meta{margin-top:5px;display:flex;flex-direction:column;gap:7px}
+.meta-row{display:flex;gap:10px;font-size:13px;line-height:1.6}
+.meta-k{color:var(--gold);flex-shrink:0;width:72px}
+.meta-v{color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:11.5px;padding:3px 10px;border:1px solid var(--border2);color:var(--muted)}
+.tag.lvl-1{border-color:#1db95444;color:#1db954}
+.tag.lvl-2{border-color:#e8a02055;color:var(--gold)}
+.tag.lvl-3{border-color:#e8404055;color:#e84040}
+.empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted);font-size:15px}
+
+/* CTA */
+.cta{background:var(--gold);padding:80px 48px;text-align:center}
+.cta h2{font-family:var(--font-c);font-size:clamp(32px,5.4vw,62px);font-weight:800;color:#000;line-height:.98;margin-bottom:14px;letter-spacing:-1.5px}
+.cta p{font-size:16.5px;color:rgba(0,0,0,.65);margin:0 auto 32px;max-width:56ch;line-height:1.65}
+.cta-wa{display:inline-flex;align-items:center;gap:12px;background:#000;color:var(--white);padding:17px 38px;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
+.cta-wa:hover{background:#141414}
+.cta-wa svg{width:20px;height:20px;fill:var(--gold)}
+footer{background:var(--dark);padding:34px 48px;border-top:1px solid var(--border);text-align:center;font-size:12.5px;color:var(--muted)}
+
+@media(max-width:900px){
+  header{padding:40px 20px 32px}
+  .filters,.count{padding-left:20px;padding-right:20px}
+  .grid{grid-template-columns:1fr;padding:22px 20px 70px}
+  .cta{padding:60px 20px}
+  footer{padding:30px 20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <a class="back" href="./index.html">&#8592; FitTech Services</a>
+    <div class="div-marker"><span class="div-marker-bar"></span><span>Student lab &#183; Topic catalogue</span></div>
+    <h1>30 projects worth<br>defending in a viva.</h1>
+    <p class="lede">
+      Every topic here is scoped to be <strong>buildable in one semester</strong> by one or two students, uses techniques that are current rather than a decade old, and has enough depth that a panel can ask real questions about it. Pick one, bring it to us, and we mentor you through the build.
+    </p>
+    <div class="note">
+      <p>These are starting points, not finished work. You write the code and the report. We help you choose, design it properly, review what you build, unstick you when you are stuck, and run a mock viva before the real one. We do not hand over completed projects.</p>
+    </div>
+  </div>
+</header>
+
+<div class="filters" id="filters">
+  <span class="filter-label">Domain</span>
+  <button class="chip on" data-f="all">All</button>
+  <button class="chip" data-f="aiml">AI &amp; ML</button>
+  <button class="chip" data-f="nlp">NLP &amp; LLM</button>
+  <button class="chip" data-f="cv">Computer vision</button>
+  <button class="chip" data-f="data">Data science</button>
+  <button class="chip" data-f="web">Web &amp; systems</button>
+  <button class="chip" data-f="iot">IoT</button>
+  <button class="chip" data-f="sec">Security</button>
+</div>
+
+<p class="count" id="count"></p>
+<div class="grid" id="grid"></div>
+
+<div class="cta">
+  <h2>FOUND ONE YOU LIKE?</h2>
+  <p>Send us the number and your college's requirements. We will tell you honestly whether it fits your timeline and your current skill level, before you commit to it.</p>
+  <a href="https://wa.me/917083328631" class="cta-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Ask about a topic
+  </a>
+</div>
+
+<footer>&#169; 2026 FitTech Services &#183; Student Lab &#183; Malegaon &#183; Nashik &#183; Maharashtra</footer>
+
+<script>
+var P=[
+{d:"nlp",l:2,t:"Syllabus-aware study assistant",w:"A question-answering assistant over your own college's notes and past papers, that cites the page it answered from instead of making things up.",tech:"Retrieval-augmented generation: chunking, embeddings, vector search, grounded prompting",stack:"Python, FastAPI, a vector store, an open LLM",why:"The citation requirement is what makes it a project rather than a chatbot wrapper. You have to prove the answer came from the source."},
+{d:"nlp",l:3,t:"Multi-agent research assistant",w:"Several specialised agents that split a research question between them, search, read, and write a referenced summary.",tech:"Agent orchestration, tool calling, task decomposition, evaluation harness",stack:"Python, an agent framework, web search API",why:"Agent systems are the most active research area right now, and the hard part — stopping agents looping forever — is a genuine engineering problem."},
+{d:"nlp",l:2,t:"Marathi and Hindi document summariser",w:"Summarise government circulars, news or notices in Marathi and Hindi, not just English.",tech:"Multilingual transformers, fine-tuning, ROUGE evaluation",stack:"Python, Hugging Face, Streamlit",why:"Indic-language NLP is genuinely underserved. A panel will not have seen five of these, unlike English summarisers."},
+{d:"nlp",l:2,t:"Resume to job-description matcher",w:"Score how well a resume matches a job posting and explain which requirements are missing.",tech:"Semantic similarity, named entity extraction, explainable scoring",stack:"Python, spaCy, sentence embeddings, React",why:"Explaining the score is harder than producing it, and that is exactly where the marks are."},
+{d:"nlp",l:1,t:"Code review assistant for student repositories",w:"Reads a pull request and comments on style, obvious bugs and missing error handling.",tech:"Static analysis combined with LLM review, prompt design, false-positive reduction",stack:"Python, GitHub API, an LLM API",why:"Small scope, visible output, and you can demo it live on your own repository during the viva."},
+{d:"nlp",l:3,t:"Small language model fine-tuned on one domain",w:"Take a small open model and fine-tune it to be good at one narrow task, then show it beats the general model on that task.",tech:"LoRA / parameter-efficient fine-tuning, dataset construction, benchmark design",stack:"Python, PyTorch, Hugging Face PEFT",why:"Building your own benchmark and losing to the baseline honestly is better science than a project that only ever shows wins."},
+
+{d:"cv",l:2,t:"Crowd density and flow monitoring",w:"Count people in a camera feed and raise an alert when density crosses a threshold.",tech:"Object detection, density estimation, multi-object tracking",stack:"Python, YOLO, OpenCV, a tracking algorithm",why:"Clear real-world use case in Indian temples, stations and events, and the failure cases in dense crowds are an honest discussion topic."},
+{d:"cv",l:2,t:"Fabric defect detection for powerlooms",w:"Spot holes, stains and weave faults in cloth from a camera over the loom.",tech:"Anomaly detection, CNN classification, working with very few defect samples",stack:"Python, PyTorch, OpenCV",why:"Directly relevant to Malegaon and Bhiwandi. Collecting your own dataset from a real loom is the differentiator."},
+{d:"cv",l:2,t:"Handwritten Devanagari document digitiser",w:"Read handwritten Marathi or Hindi forms and turn them into structured text.",tech:"OCR, sequence models, data augmentation for low-resource scripts",stack:"Python, PyTorch, OpenCV",why:"Devanagari handwriting recognition is a noticeably harder problem than Latin, and the literature is thinner, which leaves room for you."},
+{d:"cv",l:1,t:"Attendance from face recognition",w:"Mark attendance from a classroom camera instead of a register.",tech:"Face detection, face embeddings, similarity matching",stack:"Python, OpenCV, face recognition library, SQLite",why:"Common topic, so differentiate on the hard parts: spoofing with a photo, poor lighting, and what you do about privacy."},
+{d:"cv",l:3,t:"Vision assistant for the visually impaired",w:"Describe a scene aloud and warn about obstacles, running on a phone.",tech:"Vision-language models, on-device inference, latency optimisation",stack:"Python, a lightweight VLM, Android or a Pi",why:"Running it fast enough on cheap hardware is the whole engineering challenge, and that is a strong thing to defend."},
+{d:"cv",l:2,t:"Crop disease detection from leaf photos",w:"Farmer photographs a leaf, gets the likely disease and what to do about it, in their language.",tech:"Transfer learning, class imbalance, confidence calibration",stack:"Python, PyTorch, a mobile frontend",why:"Many versions exist, so your contribution is calibration: knowing when the model should say it does not know."},
+{d:"cv",l:2,t:"Automatic number plate recognition for gates",w:"Read plates at a society or campus gate and log entry and exit.",tech:"Detection plus OCR pipeline, handling Indian plate variation",stack:"Python, YOLO, OCR engine, a small web dashboard",why:"Indian plates vary wildly in font, spacing and condition, which makes the real-world accuracy discussion genuinely interesting."},
+
+{d:"aiml",l:2,t:"Loan default prediction with explanations",w:"Predict default risk and explain which factors drove each individual decision.",tech:"Gradient boosting, SHAP explanations, fairness checks across groups",stack:"Python, XGBoost, SHAP, Streamlit",why:"Explainability and fairness are what lift this above a Kaggle notebook. Check whether your model is unfair, and report it even if it is."},
+{d:"aiml",l:3,t:"Federated learning across devices",w:"Train one shared model across several devices without any of them sending raw data anywhere.",tech:"Federated averaging, privacy-preserving training, handling uneven data",stack:"Python, PyTorch, a federated learning framework",why:"Conceptually demanding and currently fashionable in research. If you can explain why it is hard, you will impress the panel."},
+{d:"aiml",l:2,t:"Demand forecasting for a local shop",w:"Forecast weekly demand for a real kirana or medical store using their own sales history.",tech:"Time series forecasting, seasonality, backtesting against a naive baseline",stack:"Python, statistical and ML forecasters, a dashboard",why:"Using a real shop's data makes it yours. Beating a naive baseline is harder than students expect, which is the honest finding."},
+{d:"aiml",l:2,t:"Energy consumption prediction for a building",w:"Predict load for a campus or factory and flag abnormal usage.",tech:"Time series models, anomaly detection, feature engineering on weather data",stack:"Python, scikit-learn, Grafana or a custom dashboard",why:"Anomaly labels are usually missing, so how you evaluate without labels is the real research question."},
+{d:"aiml",l:1,t:"Recommendation engine for a small catalogue",w:"Suggest products or content from a modest catalogue and show that it beats recommending the most popular item.",tech:"Collaborative filtering, matrix factorisation, offline evaluation",stack:"Python, implicit or surprise, Flask",why:"A clean, well-understood project. Marks come from honest evaluation and from handling the cold-start problem."},
+{d:"aiml",l:3,t:"Reinforcement learning for traffic signals",w:"Train signal timings in a simulator and show reduced waiting time against fixed timings.",tech:"Deep reinforcement learning, simulation environments, reward design",stack:"Python, SUMO traffic simulator, PyTorch",why:"Reward design is where most RL projects fail, so documenting your failed reward functions is genuinely valuable content for the report."},
+{d:"aiml",l:2,t:"Medical appointment no-show prediction",w:"Predict which patients will miss appointments so clinics can overbook sensibly.",tech:"Imbalanced classification, threshold tuning, cost-sensitive evaluation",stack:"Python, scikit-learn, a simple web interface",why:"Accuracy is the wrong metric here and explaining why is the single best thing you can say in a viva."},
+
+{d:"data",l:2,t:"Air quality analysis and forecasting for your city",w:"Pull public sensor data, analyse patterns and forecast the next few days.",tech:"Data pipelines, time series forecasting, geospatial visualisation",stack:"Python, pandas, a scheduler, a mapping library",why:"Public data, local relevance, and a visible dashboard. The automated pipeline is what makes it engineering rather than a notebook."},
+{d:"data",l:1,t:"Public expenditure dashboard",w:"Turn messy government budget data into something a normal person can read.",tech:"Data cleaning, schema design, visual design for clarity",stack:"Python, pandas, a charting library, a web frontend",why:"The data cleaning is the project. Document every inconsistency you found and how you resolved it."},
+{d:"data",l:2,t:"Fake review detection on e-commerce data",w:"Flag reviews that look manufactured and explain the signals used.",tech:"Text features, behavioural features, semi-supervised learning",stack:"Python, scikit-learn, NLP libraries",why:"You rarely have true labels, so your approach to evaluating without ground truth is the interesting part."},
+{d:"data",l:3,t:"Real-time analytics pipeline",w:"Ingest a live event stream, process it, and show results on a dashboard within seconds.",tech:"Stream processing, windowing, backpressure handling",stack:"Python, Kafka or Redis streams, a dashboard",why:"More systems than ML, and that is exactly why it stands out in a sea of model-training projects."},
+
+{d:"web",l:2,t:"Multi-tenant management system",w:"One system serving many businesses, with each one's data fully isolated from the others.",tech:"Multi-tenancy patterns, row-level isolation, role-based access control",stack:"Node or Django, PostgreSQL, React",why:"Multi-tenancy is a real architectural problem that most student projects never touch, and it is directly employable knowledge."},
+{d:"web",l:2,t:"Offline-first field data collection app",w:"Collect data in areas with no network and sync cleanly when the connection returns.",tech:"Local-first storage, conflict resolution, sync protocols",stack:"React or Flutter, IndexedDB or SQLite, a sync backend",why:"Conflict resolution when two people edited the same record offline is a hard, well-defined problem with a satisfying answer."},
+{d:"web",l:1,t:"Queue and token system for clinics",w:"Replace the waiting room scramble with live token numbers on people's phones.",tech:"Real-time updates, state management, simple capacity modelling",stack:"Node, WebSockets, React",why:"Small, finishable, and genuinely useful. You can deploy it at a real clinic and report what actually happened."},
+{d:"web",l:3,t:"Self-hosted deployment platform",w:"Push a repository, get a running site, without using a commercial platform.",tech:"Containerisation, build pipelines, reverse proxy routing, process management",stack:"Docker, a container runtime, Node or Go",why:"Building a small version of the thing you use every day teaches more than almost any other project on this list."},
+
+{d:"iot",l:2,t:"Water tank and pump monitoring",w:"Track levels and pump runtime for a society, alert on dry running or overflow.",tech:"Sensor integration, edge filtering of noisy readings, alerting logic",stack:"ESP32, MQTT, a small server, a dashboard",why:"Cheap to build, immediately useful, and sensor noise gives you a real signal-processing problem to solve."},
+{d:"iot",l:2,t:"Predictive maintenance for machinery",w:"Listen to vibration or sound from a motor and warn before it fails.",tech:"Signal processing, feature extraction from vibration, anomaly detection",stack:"Arduino or Pi, accelerometer or microphone, Python",why:"Highly relevant to any industrial area. Getting a real failure to learn from is the honest difficulty, and you should say so."},
+{d:"sec",l:2,t:"Network intrusion detection with explanations",w:"Detect attacks in network traffic and explain which features triggered each alert.",tech:"Classification on traffic features, handling class imbalance, SHAP explanations",stack:"Python, XGBoost, SHAP, public intrusion datasets",why:"Well-trodden on public datasets, so stand out by testing on traffic you captured yourself and reporting how badly it transfers."},
+{d:"sec",l:2,t:"Phishing detection for Indian-language messages",w:"Catch scam SMS and WhatsApp messages written in Hinglish and Marathi.",tech:"Multilingual text classification, feature engineering on URLs, adversarial testing",stack:"Python, transformers, a browser or Android client",why:"Scams in Indian languages are badly covered by existing filters. Your own collected dataset becomes the real contribution."}
+];
+
+var DOM={aiml:"AI &amp; ML",nlp:"NLP &amp; LLM",cv:"Computer vision",data:"Data science",web:"Web &amp; systems",iot:"IoT",sec:"Security"};
+var LVL={1:"Starter",2:"Solid",3:"Ambitious"};
+var active="all";
+
+function esc(s){return String(s).replace(/</g,'&lt;');}
+
+function render(){
+  var list=active==='all'?P:P.filter(function(p){return p.d===active;});
+  var g=document.getElementById('grid');
+  document.getElementById('count').textContent=list.length+(list.length===1?' topic':' topics')+(active==='all'?'':' in this domain');
+  if(!list.length){g.innerHTML='<div class="empty">Nothing here yet.</div>';return;}
+  g.innerHTML=list.map(function(p){
+    var n=P.indexOf(p)+1;
+    return '<article class="proj">'+
+      '<div class="proj-top"><h3>'+esc(p.t)+'</h3><span class="proj-n">'+(n<10?'0'+n:n)+'</span></div>'+
+      '<p class="proj-what">'+esc(p.w)+'</p>'+
+      '<div class="proj-meta">'+
+        '<div class="meta-row"><span class="meta-k">Technique</span><span class="meta-v">'+esc(p.tech)+'</span></div>'+
+        '<div class="meta-row"><span class="meta-k">Stack</span><span class="meta-v">'+esc(p.stack)+'</span></div>'+
+        '<div class="meta-row"><span class="meta-k">Why it scores</span><span class="meta-v">'+esc(p.why)+'</span></div>'+
+      '</div>'+
+      '<div class="tags"><span class="tag">'+DOM[p.d]+'</span><span class="tag lvl-'+p.l+'">'+LVL[p.l]+'</span></div>'+
+    '</article>';
+  }).join('');
+}
+
+document.getElementById('filters').addEventListener('click',function(e){
+  var b=e.target.closest('.chip');if(!b)return;
+  active=b.getAttribute('data-f');
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  b.classList.add('on');
+  render();
+});
+render();
+</script>
+</body>
+</html>
