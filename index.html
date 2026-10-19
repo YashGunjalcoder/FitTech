@@ -188,6 +188,16 @@ nav{
 .pain-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:5px}
 .pain-sub{font-size:14px;color:var(--muted);line-height:1.65}
 
+/* ── CATALOGUE BAND ── */
+.catalogue-band{
+  margin-top:56px;background:var(--card);border:1px solid var(--border2);border-left:3px solid var(--gold);
+  padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+}
+.catalogue-band>div:first-child{display:flex;align-items:center;gap:26px}
+.cb-num{font-family:var(--font-c);font-size:68px;font-weight:800;color:var(--gold);line-height:.85}
+.cb-title{font-family:var(--font-d);font-size:21px;font-weight:700;color:var(--white);margin-bottom:6px}
+.cb-sub{font-size:14.5px;color:var(--muted);line-height:1.65;max-width:52ch}
+
 /* ── WORK CARDS ── */
 .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .work-card{
@@ -324,6 +334,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
     <li><a href="#gym">Gym software</a></li>
     <li><a href="#work">Our work</a></li>
     <li><a href="#students">Student lab</a></li>
+    <li><a href="./projects.html">Project topics</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
   <div class="nav-right">
@@ -338,6 +349,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
   <a href="#gym" onclick="closeMenu()">Gym software</a>
   <a href="#work" onclick="closeMenu()">Our work</a>
   <a href="#students" onclick="closeMenu()">Student lab</a>
+  <a href="./projects.html">Project topics</a>
   <a href="#pricing" onclick="closeMenu()">Pricing</a>
   <a href="#how" onclick="closeMenu()">How it works</a>
   <a href="https://wa.me/917083328631" onclick="closeMenu()" style="color:var(--gold)">Talk to us</a>
@@ -561,6 +573,17 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
       </div>
     </div>
 
+    <div class="catalogue-band">
+      <div>
+        <div class="cb-num">30</div>
+        <div>
+          <div class="cb-title">Project topics, ready to pick from</div>
+          <div class="cb-sub">Each one scoped for a single semester, with the technique behind it and why it scores in a viva.</div>
+        </div>
+      </div>
+      <a href="./projects.html" class="btn-gold">Browse the topics</a>
+    </div>
+
     <h3 style="font-family:var(--font-d);font-size:20px;margin-top:70px;margin-bottom:6px;color:var(--white);font-weight:700">Domains we mentor in</h3>
     <p style="font-size:15px;color:var(--muted)">Computer-side only. We stay in what we actually know.</p>
     <div class="domains">
@@ -663,6 +686,7 @@ footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--borde
     <a href="#gym">Gym software</a>
     <a href="#work">Our work</a>
     <a href="#students">Student lab</a>
+    <a href="./projects.html">Project topics</a>
     <a href="#pricing">Pricing</a>
     <a href="https://wa.me/917083328631" target="_blank" rel="noopener">Contact</a>
   </div>
