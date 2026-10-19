@@ -2,358 +2,292 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FitTech Services — Gym Website + ERP at 20% Market Price</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>FitTech Services — Software for local business, mentorship for CS students</title>
+<meta name="description" content="Gym websites with member management, and final-year project mentorship for CS, IT and AI/ML students. Built in Maharashtra."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
+  color-scheme:dark;
   --black:#060606;--dark:#0c0c0c;--card:#141414;
   --border:#222;--border2:#2a2a2a;
-  --gold:#e8a020;--gold2:#f5c04a;--gold-dim:rgba(232,160,32,.12);
-  --white:#f0ede8;--muted:#666;--muted2:#444;
+  --gold:#e8a020;--gold2:#f5c04a;
+  --white:#f0ede8;--muted:#8a8578;--muted2:#444;
   --font-d:'Syne',sans-serif;
   --font-c:'Barlow Condensed',sans-serif;
   --font-b:'Barlow',sans-serif;
+  --pad-top:env(safe-area-inset-top,0px);
+  --pad-bot:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+  padding-top:var(--pad-top);
+  padding-bottom:var(--pad-bot);
 }
-html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--white);font-family:var(--font-b);font-weight:300;overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--pad-top) + 70px);background:#060606}
+body{background:var(--black);color:var(--white);font-family:var(--font-b);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── NOISE TEXTURE OVERLAY ── */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   opacity:.4;
 }
+/* opaque strip behind translucent phone status bar */
+body::after{
+  content:"";position:fixed;inset:0 0 auto;height:var(--pad-top);
+  background:rgba(6,6,6,.92);backdrop-filter:blur(20px);z-index:101;pointer-events:none;
+}
+
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px;
+}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 48px;
-  background:rgba(6,6,6,.85);backdrop-filter:blur(20px);
+  position:fixed;top:var(--pad-top);left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 48px;
+  background:rgba(6,6,6,.88);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
-.logo{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .logo svg{width:52px;height:26px}
 .logo-text{display:flex;flex-direction:column;gap:1px}
-.logo-name{font-family:var(--font-d);font-size:16px;color:var(--white);letter-spacing:-.3px;line-height:1}
+.logo-name{font-family:var(--font-d);font-size:16px;color:var(--white);letter-spacing:-.3px;line-height:1;font-weight:800}
 .logo-name span{color:var(--gold)}
-.logo-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.logo-tag{font-size:9px;letter-spacing:2.4px;color:var(--muted)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:.3px;transition:color .2s}
 .nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:8px}
 .nav-cta{
-  background:var(--gold);color:var(--black);
-  padding:10px 24px;font-size:12px;font-weight:600;
-  letter-spacing:1px;text-transform:uppercase;
+  background:var(--gold);color:#000;
+  padding:10px 22px;font-size:13px;font-weight:600;
   text-decoration:none;border:none;cursor:pointer;
-  transition:background .2s;
+  transition:background .2s;font-family:var(--font-b);
   clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
 }
 .nav-cta:hover{background:var(--gold2)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-admin-btn{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:9px 14px;font-size:12px;cursor:pointer;transition:all .2s;font-family:var(--font-b)}
+.nav-admin-btn:hover{border-color:var(--muted);color:var(--white)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
 .hamburger span{width:22px;height:2px;background:var(--white);display:block}
 
 /* ── HERO ── */
 .hero{
-  min-height:100vh;position:relative;
+  min-height:92vh;position:relative;
   display:flex;flex-direction:column;justify-content:center;
-  padding:140px 48px 80px;overflow:hidden;
+  padding:150px 48px 70px;overflow:hidden;
 }
 .hero-grid-bg{
   position:absolute;inset:0;
   background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
-  background-size:60px 60px;
-  opacity:.25;
+  background-size:60px 60px;opacity:.25;
   mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);
 }
 .hero-glow{
-  position:absolute;top:-200px;left:-200px;
-  width:700px;height:700px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);
-  pointer-events:none;
+  position:absolute;top:-220px;left:-180px;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.09) 0%,transparent 70%);pointer-events:none;
 }
-.hero-glow2{
-  position:absolute;bottom:-100px;right:-100px;
-  width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,160,32,.05) 0%,transparent 70%);
-  pointer-events:none;
-}
+.hero-inner{position:relative;z-index:2;max-width:860px}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:10px;
-  border:1px solid var(--border2);padding:6px 14px;
-  margin-bottom:28px;width:fit-content;
+  border:1px solid var(--border2);padding:7px 15px;margin-bottom:30px;width:fit-content;
   opacity:0;animation:up .5s .1s forwards;
 }
-.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.hero-eyebrow span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero-eyebrow span{font-size:12px;letter-spacing:.6px;color:var(--gold)}
 .hero-title{
-  font-family:var(--font-c);
-  font-size:clamp(56px,9vw,130px);
-  font-weight:800;
-  line-height:.92;
-  letter-spacing:-1px;
-  color:var(--white);
-  margin-bottom:8px;
+  font-family:var(--font-c);font-size:clamp(50px,8.4vw,120px);font-weight:800;
+  line-height:.92;letter-spacing:-1px;color:var(--white);margin-bottom:22px;
   opacity:0;animation:up .5s .25s forwards;
 }
-.hero-title .gold{color:var(--gold)}
-.hero-title .outline{
-  -webkit-text-stroke:1.5px rgba(255,255,255,.3);
-  color:transparent;
-}
-.hero-sub-title{
-  font-family:var(--font-c);
-  font-size:clamp(32px,5vw,72px);
-  font-weight:700;
-  color:var(--muted);
-  letter-spacing:-1px;
-  margin-bottom:28px;
-  opacity:0;animation:up .5s .4s forwards;
-}
+.hero-title em{font-style:normal;color:var(--gold)}
 .hero-body{
-  font-size:17px;line-height:1.7;color:var(--muted);
-  max-width:520px;margin-bottom:40px;
-  opacity:0;animation:up .5s .55s forwards;
+  font-size:17px;line-height:1.75;color:var(--muted);max-width:60ch;margin-bottom:38px;
+  opacity:0;animation:up .5s .45s forwards;
 }
 .hero-body strong{color:var(--white);font-weight:500}
-.hero-actions{
-  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
-  opacity:0;animation:up .5s .7s forwards;
-}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;opacity:0;animation:up .5s .6s forwards}
 .btn-gold{
-  background:var(--gold);color:var(--black);
-  padding:16px 36px;font-size:13px;font-weight:600;
-  letter-spacing:1.5px;text-transform:uppercase;
-  text-decoration:none;display:inline-block;
+  background:var(--gold);color:#000;padding:16px 34px;font-size:14px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:10px;
   transition:background .2s,transform .15s;
   clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
 }
 .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-gold svg{width:18px;height:18px;fill:#000}
 .btn-ghost{
-  color:var(--white);border:1px solid var(--border2);
-  padding:15px 36px;font-size:13px;letter-spacing:1.5px;
-  text-transform:uppercase;text-decoration:none;display:inline-block;
-  transition:all .2s;
+  color:var(--white);border:1px solid var(--border2);padding:15px 32px;font-size:14px;
+  text-decoration:none;display:inline-block;transition:all .2s;
 }
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
-.hero-price-badge{
-  position:absolute;right:48px;top:50%;transform:translateY(-50%);
-  text-align:center;
-  opacity:0;animation:up .6s .9s forwards;
-}
+.hero-price-badge{position:absolute;right:48px;top:52%;transform:translateY(-50%);text-align:center;z-index:2;opacity:0;animation:up .6s .85s forwards}
 .price-circle{
-  width:180px;height:180px;border-radius:50%;
-  border:1px solid var(--border2);
+  width:184px;height:184px;border-radius:50%;border:1px solid var(--border2);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:var(--card);
-  position:relative;
+  background:var(--card);position:relative;
 }
 .price-circle::before{
   content:'';position:absolute;inset:-1px;border-radius:50%;
   background:conic-gradient(var(--gold) 0deg 72deg,transparent 72deg);
-  z-index:-1;
-  animation:spin 8s linear infinite;
+  z-index:-1;animation:spin 9s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .price-circle::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--card);z-index:-1}
-.price-num{font-family:var(--font-d);font-size:48px;color:var(--gold);line-height:1}
-.price-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.price-sub{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px}
-
-@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.price-num{font-family:var(--font-d);font-size:50px;color:var(--gold);line-height:1;font-weight:800}
+.price-label{font-size:11px;color:var(--muted);margin-top:6px;max-width:110px;line-height:1.4}
+.price-sub{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── TICKER ── */
-.ticker{
-  background:var(--gold);padding:14px 0;overflow:hidden;
-  white-space:nowrap;position:relative;z-index:2;
-}
-.ticker-inner{display:inline-flex;animation:ticker 20s linear infinite}
+.ticker{background:var(--gold);padding:13px 0;overflow:hidden;white-space:nowrap;position:relative;z-index:2}
+.ticker-inner{display:inline-flex;animation:ticker 26s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{
-  font-family:var(--font-c);font-size:16px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;
-  color:var(--black);padding:0 32px;
-}
-.ticker-dot{color:rgba(0,0,0,.3);margin-right:32px}
+.ticker-item{font-family:var(--font-c);font-size:17px;font-weight:700;letter-spacing:1.4px;color:#000;padding:0 28px}
+.ticker-dot{color:rgba(0,0,0,.3);margin-left:28px}
 
 /* ── SECTIONS ── */
-section{padding:110px 48px;position:relative;z-index:1}
-.s-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.s-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
-.s-title{font-family:var(--font-c);font-size:clamp(36px,5vw,68px);font-weight:800;line-height:.95;letter-spacing:-1px;margin-bottom:20px}
-.s-body{font-size:16px;line-height:1.8;color:var(--muted);max-width:500px}
-.divider-line{width:1px;height:60px;background:var(--border2);margin:0 auto}
+.sec{padding:110px 48px;position:relative;z-index:1}
+.sec-dark{background:var(--dark)}
+.sec-black{background:var(--black)}
+.wrap{max-width:1180px;margin:0 auto}
+.div-marker{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.div-marker-bar{width:30px;height:2px;background:var(--gold)}
+.div-marker span{font-size:13px;color:var(--gold);letter-spacing:.5px}
+.s-title{font-family:var(--font-c);font-size:clamp(36px,5.2vw,66px);font-weight:800;line-height:.98;letter-spacing:-1px;margin-bottom:20px}
+.s-body{font-size:16px;line-height:1.8;color:var(--muted);max-width:56ch}
 
-/* ── PROBLEM SECTION ── */
-.problem{background:var(--dark)}
-.problem-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
-.pain-list{display:flex;flex-direction:column;gap:0}
-.pain-item{
-  display:flex;align-items:flex-start;gap:20px;
-  padding:24px 0;border-bottom:1px solid var(--border);
-}
-.pain-item:last-child{border-bottom:none}
-.pain-num{font-family:var(--font-d);font-size:32px;color:var(--border2);flex-shrink:0;line-height:1;transition:color .2s}
-.pain-item:hover .pain-num{color:var(--gold)}
-.pain-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:5px}
-.pain-sub{font-size:13px;color:var(--muted);line-height:1.6}
+/* ── SPLIT HEADER ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end;margin-bottom:60px}
 
-/* ── WHAT WE BUILD ── */
-.what{background:var(--black)}
-.what-inner{max-width:1200px;margin:0 auto}
-.what-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+/* ── FEATURE GRID ── */
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.feat-card{
-  background:var(--card);padding:36px 28px;
-  border:1px solid var(--border);
-  transition:border-color .25s,background .25s;
-  position:relative;overflow:hidden;
-}
+.feat-card{background:var(--card);padding:34px 28px;border:1px solid var(--border);transition:border-color .25s,background .25s;position:relative;overflow:hidden}
 .feat-card:hover{border-color:var(--gold);background:#0f0c00}
-.feat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left;
-}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left}
 .feat-card:hover::before{transform:scaleX(1)}
-.feat-icon{width:40px;height:40px;margin-bottom:20px;color:var(--gold)}
-.feat-title{font-size:18px;font-weight:600;color:var(--white);margin-bottom:10px;font-family:var(--font-d)}
-.feat-body{font-size:13px;color:var(--muted);line-height:1.7}
+.feat-icon{width:38px;height:38px;margin-bottom:18px;color:var(--gold)}
+.feat-title{font-size:18px;font-weight:700;color:var(--white);margin-bottom:9px;font-family:var(--font-d)}
+.feat-body{font-size:14px;color:var(--muted);line-height:1.7}
 
-/* ── PRICING ── */
-.pricing{background:var(--dark)}
-.pricing-inner{max-width:1100px;margin:0 auto}
-.pricing-header{text-align:center;margin-bottom:60px}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:40px}
-.price-card{
-  background:var(--card);border:1px solid var(--border);
-  padding:40px 32px;position:relative;transition:border-color .2s;
-}
-.price-card:hover{border-color:var(--gold)}
-.price-card.featured{
-  border-color:var(--gold);background:#0f0c00;
-  transform:translateY(-8px);
-}
-.price-card.featured::before{
-  content:'MOST POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
-  background:var(--gold);color:var(--black);
-  font-size:9px;letter-spacing:2px;font-weight:700;
-  padding:4px 14px;
-}
-.price-tier{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.price-amount{font-family:var(--font-c);font-size:56px;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
-.price-amount sup{font-size:24px;color:var(--gold)}
-.price-desc{font-size:12px;color:var(--muted);margin-bottom:28px;line-height:1.5}
-.price-feats{list-style:none;margin-bottom:32px}
-.price-feats li{font-size:13px;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center}
-.price-feats li:last-child{border-bottom:none}
-.check{color:var(--gold);font-size:14px;flex-shrink:0}
-.price-btn{
-  display:block;text-align:center;padding:13px;
-  font-size:12px;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;border:1px solid var(--border2);color:var(--white);
-  transition:all .2s;font-family:var(--font-b);cursor:pointer;background:transparent;width:100%;
-}
-.price-card.featured .price-btn{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:600}
-.price-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--black)}
-.pricing-note{text-align:center;font-size:13px;color:var(--muted)}
-.pricing-note span{color:var(--gold)}
+/* ── PAIN LIST ── */
+.pain-list{display:flex;flex-direction:column}
+.pain-item{display:flex;align-items:flex-start;gap:20px;padding:22px 0;border-bottom:1px solid var(--border)}
+.pain-item:last-child{border-bottom:none}
+.pain-mark{width:9px;height:9px;flex-shrink:0;margin-top:7px;background:var(--gold);transform:rotate(45deg)}
+.pain-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:5px}
+.pain-sub{font-size:14px;color:var(--muted);line-height:1.65}
 
-/* ── HOW IT WORKS ── */
-.how{background:var(--black)}
-.how-inner{max-width:1000px;margin:0 auto}
-.how-header{text-align:center;margin-bottom:70px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
-.steps::before{
-  content:'';position:absolute;top:36px;left:10%;right:10%;height:1px;
-  background:linear-gradient(to right,transparent,var(--border2) 20%,var(--border2) 80%,transparent);
+/* ── DOMAIN CHIPS ── */
+.domains{display:flex;flex-wrap:wrap;gap:2px;margin-top:40px}
+.domain-chip{
+  background:var(--card);border:1px solid var(--border);padding:16px 22px;
+  font-size:14px;color:var(--muted);transition:all .2s;flex:1 1 auto;text-align:center;min-width:150px;
 }
-.step{text-align:center;padding:0 20px;position:relative}
+.domain-chip:hover{border-color:var(--gold);color:var(--white)}
+.domain-chip b{display:block;color:var(--white);font-weight:600;font-size:15px;margin-bottom:3px;font-family:var(--font-b)}
+
+/* ── MENTOR PRINCIPLE BOX ── */
+.principle{
+  margin-top:48px;border:1px solid var(--border2);border-left:3px solid var(--gold);
+  background:var(--card);padding:30px 32px;max-width:720px;
+}
+.principle h4{font-family:var(--font-d);font-size:19px;color:var(--white);margin-bottom:10px;font-weight:700}
+.principle p{font-size:15px;color:var(--muted);line-height:1.75}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-top:56px}
+.steps::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:1px;background:linear-gradient(to right,transparent,var(--border2) 18%,var(--border2) 82%,transparent)}
+.step{text-align:center;padding:0 18px;position:relative}
 .step-num{
-  width:72px;height:72px;border-radius:50%;
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;background:var(--card);
-  font-family:var(--font-d);font-size:24px;color:var(--gold);
-  position:relative;z-index:1;
+  width:72px;height:72px;border-radius:50%;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+  background:var(--card);font-family:var(--font-d);font-size:24px;color:var(--gold);position:relative;z-index:1;font-weight:800;
 }
-.step-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
-.step-body{font-size:12px;color:var(--muted);line-height:1.6}
+.step-title{font-size:16px;font-weight:600;color:var(--white);margin-bottom:7px}
+.step-body{font-size:13.5px;color:var(--muted);line-height:1.65}
 
-/* ── SOCIAL PROOF / RESULTS ── */
-.results{background:var(--dark)}
-.results-inner{max-width:1200px;margin:0 auto}
-.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:60px}
-.result-card{background:var(--card);border:1px solid var(--border);padding:32px 24px;text-align:center}
-.result-num{font-family:var(--font-c);font-size:52px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:6px}
-.result-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+/* ── PRICING PHILOSOPHY ── */
+.price-philosophy{background:var(--black);padding:110px 48px}
+.pp-inner{max-width:900px;margin:0 auto;text-align:center}
+.pp-big{font-family:var(--font-c);font-size:clamp(70px,16vw,180px);font-weight:800;color:var(--gold);line-height:.85;letter-spacing:-4px;margin-bottom:10px}
+.pp-caption{font-size:18px;color:var(--white);margin-bottom:26px}
+.pp-body{font-size:16px;color:var(--muted);line-height:1.85;max-width:60ch;margin:0 auto 38px}
+.pp-points{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:50px;text-align:left}
+.pp-point{background:var(--card);border:1px solid var(--border);padding:28px 24px}
+.pp-point h5{font-family:var(--font-d);font-size:16px;color:var(--gold);margin-bottom:8px;font-weight:700}
+.pp-point p{font-size:14px;color:var(--muted);line-height:1.7}
 
-/* ── CTA FINAL ── */
-.cta-final{
-  background:var(--gold);padding:100px 48px;
-  text-align:center;position:relative;overflow:hidden;
-}
+/* ── FINAL CTA ── */
+.cta-final{background:var(--gold);padding:100px 48px;text-align:center;position:relative;overflow:hidden}
 .cta-final::before{
-  content:'FITTECH';
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:var(--font-c);font-size:220px;font-weight:800;
-  color:rgba(0,0,0,.06);letter-spacing:-4px;white-space:nowrap;pointer-events:none;
+  content:'FITTECH';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-c);font-size:clamp(120px,24vw,240px);font-weight:800;
+  color:rgba(0,0,0,.06);letter-spacing:-5px;white-space:nowrap;pointer-events:none;
 }
-.cta-final h2{font-family:var(--font-c);font-size:clamp(40px,7vw,90px);font-weight:800;color:var(--black);line-height:.95;margin-bottom:16px;letter-spacing:-2px;position:relative}
-.cta-final p{font-size:17px;color:rgba(0,0,0,.6);margin-bottom:40px;position:relative}
+.cta-final h2{font-family:var(--font-c);font-size:clamp(38px,6.6vw,86px);font-weight:800;color:#000;line-height:.96;margin-bottom:16px;letter-spacing:-2px;position:relative}
+.cta-final p{font-size:17px;color:rgba(0,0,0,.65);margin-bottom:38px;position:relative;max-width:50ch;margin-left:auto;margin-right:auto;line-height:1.6}
 .cta-wa{
-  display:inline-flex;align-items:center;gap:12px;
-  background:var(--black);color:var(--white);
-  padding:18px 42px;font-size:14px;font-weight:600;
-  letter-spacing:1.5px;text-transform:uppercase;
-  text-decoration:none;transition:background .2s;position:relative;
+  display:inline-flex;align-items:center;gap:12px;background:#000;color:var(--white);
+  padding:18px 40px;font-size:15px;font-weight:600;text-decoration:none;
+  transition:background .2s;position:relative;
   clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
 }
-.cta-wa:hover{background:#111}
+.cta-wa:hover{background:#141414}
 .cta-wa svg{width:20px;height:20px;fill:var(--gold)}
+.cta-number{margin-top:20px;font-size:15px;color:rgba(0,0,0,.6);position:relative}
+.cta-number b{color:#000;font-weight:600}
 
 /* ── FOOTER ── */
-footer{
-  background:var(--dark);padding:48px;
-  border-top:1px solid var(--border);
-  display:grid;grid-template-columns:1fr auto 1fr;
-  align-items:center;gap:24px;
-}
+footer{background:var(--dark);padding:46px 48px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px}
 .footer-logo{display:flex;align-items:center;gap:10px}
 .footer-logo svg{width:44px;height:22px}
-.footer-logo-name{font-family:var(--font-d);font-size:14px;color:var(--white)}
+.footer-logo-name{font-family:var(--font-d);font-size:14px;color:var(--white);font-weight:800}
 .footer-logo-name span{color:var(--gold)}
-.footer-copy{font-size:11px;color:var(--muted);text-align:center}
-.footer-links{display:flex;gap:24px;justify-content:flex-end}
-.footer-links a{font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.footer-copy{font-size:12px;color:var(--muted);text-align:center}
+.footer-links{display:flex;gap:22px;justify-content:flex-end;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--gold)}
 
 /* ── MOBILE MENU ── */
-.mobile-menu{display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.98);flex-direction:column;align-items:center;justify-content:center}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.98);flex-direction:column;align-items:center;justify-content:center;padding-top:var(--pad-top)}
 .mobile-menu.open{display:flex}
-.mobile-menu-close{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer}
-.mobile-menu a{font-family:var(--font-c);font-size:44px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:12px 40px;transition:color .2s;display:block;text-align:center}
+.mobile-menu-close{position:absolute;top:calc(var(--pad-top) + 16px);right:22px;background:none;border:none;color:var(--muted);font-size:30px;cursor:pointer;line-height:1}
+.mobile-menu a{font-family:var(--font-c);font-size:38px;font-weight:700;color:var(--muted);text-decoration:none;padding:11px 30px;transition:color .2s;display:block;text-align:center}
 .mobile-menu a:hover{color:var(--gold)}
 
 /* ── RESPONSIVE ── */
-@media(max-width:900px){
-  nav{padding:14px 20px}
-  .nav-links,.nav-cta{display:none}
+@media(max-width:980px){
+  nav{padding:13px 20px}
+  .nav-links{display:none}
+  .nav-cta{display:none}
   .hamburger{display:flex}
-  .hero{padding:120px 20px 60px}
-  .hero-price-badge{display:none}
-  section{padding:70px 20px}
-  .problem-inner,.what-header{grid-template-columns:1fr;gap:40px}
-  .features-grid,.pricing-grid{grid-template-columns:1fr}
-  .price-card.featured{transform:none}
-  .steps{grid-template-columns:1fr 1fr;gap:32px}
+  .hero{padding:130px 20px 60px;min-height:auto}
+  .hero-price-badge{position:static;transform:none;margin-top:46px;display:flex;flex-direction:column;align-items:flex-start}
+  .price-circle{width:150px;height:150px}
+  .price-num{font-size:40px}
+  .price-sub{text-align:left}
+  .sec,.price-philosophy{padding:70px 20px}
+  .split{grid-template-columns:1fr;gap:38px}
+  .features-grid,.pp-points{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:34px}
   .steps::before{display:none}
-  .results-grid{grid-template-columns:1fr 1fr}
-  footer{grid-template-columns:1fr;text-align:center}
+  footer{grid-template-columns:1fr;text-align:center;padding:40px 20px}
   .footer-links{justify-content:center}
   .cta-final{padding:70px 20px}
+}
+@media(max-width:520px){
+  .domain-chip{min-width:100%}
 }
 </style>
 </head>
@@ -361,331 +295,551 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <div class="logo">
-    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <a class="logo" href="#home" style="text-decoration:none">
+    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="0" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
       <rect x="49" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
       <polyline points="4,13 9,13 13,4 17,22 21,8 25,18 29,13 48,13" fill="none" stroke="#e8a020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    <div class="logo-text">
-      <div class="logo-name">Fit<span>Tech</span></div>
-      <div class="logo-tag">Services</div>
-    </div>
-  </div>
+    <span class="logo-text">
+      <span class="logo-name">Fit<span>Tech</span></span>
+      <span class="logo-tag">Services</span>
+    </span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#what">What We Build</a></li>
+    <li><a href="#gym">Gym software</a></li>
+    <li><a href="#students">Student lab</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#how">How It Works</a></li>
+    <li><a href="#how">How it works</a></li>
   </ul>
-  <a href="https://wa.me/917083328631" class="nav-cta" target="_blank">Get Your Site →</a>
-  <button class="nav-admin-btn" onclick="openFTLogin()" style="background:transparent;border:1px solid var(--border2);color:var(--muted);padding:9px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-left:8px">Admin</button>
-  <button class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <a href="https://wa.me/917083328631" class="nav-cta" target="_blank" rel="noopener">Talk to us</a>
+    <button class="nav-admin-btn" onclick="openFTLogin()">Admin</button>
+    <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
 <div class="mobile-menu" id="mob-menu">
-  <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
-  <a href="#problem" onclick="closeMenu()">Problem</a>
-  <a href="#what" onclick="closeMenu()">What We Build</a>
+  <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close menu">&#10005;</button>
+  <a href="#gym" onclick="closeMenu()">Gym software</a>
+  <a href="#students" onclick="closeMenu()">Student lab</a>
   <a href="#pricing" onclick="closeMenu()">Pricing</a>
-  <a href="#how" onclick="closeMenu()">How It Works</a>
-  <a href="https://wa.me/917083328631" onclick="closeMenu()" style="color:var(--gold)">Get Your Site →</a>
+  <a href="#how" onclick="closeMenu()">How it works</a>
+  <a href="https://wa.me/917083328631" onclick="closeMenu()" style="color:var(--gold)">Talk to us</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
 
-  <div style="position:relative;z-index:2;max-width:800px">
+  <div class="hero-inner">
     <div class="hero-eyebrow">
-      <div class="hero-eyebrow-dot"></div>
-      <span>Gym Website + Member ERP — Done For You</span>
+      <span class="hero-eyebrow-dot"></span>
+      <span>Built in Maharashtra, for Maharashtra</span>
     </div>
 
-    <h1 class="hero-title">
-      YOUR GYM<br>
-      DESERVES A<br>
-      <span class="gold">WEBSITE.</span>
-    </h1>
-
-    <p class="hero-sub-title">We build it for 20% of<br>what others charge.</p>
+    <h1 class="hero-title">SOFTWARE THAT<br>LOCAL BUSINESS<br>CAN <em>ACTUALLY</em><br>AFFORD.</h1>
 
     <p class="hero-body">
-      <strong>Professional gym website + full member management system</strong> — expiry alerts, payment tracking, WhatsApp reminders — delivered in 5 days. Most agencies charge ₹15,000+. We charge <strong>₹4,500.</strong> Yes, really.
+      We do two things. We build <strong>gym websites with member management</strong> that stop you losing renewals. And we run a <strong>mentorship lab for CS, IT and AI/ML students</strong> building their final-year projects.
+      Both priced at a fraction of what agencies and city institutes charge, because we keep overhead at zero.
     </p>
 
     <div class="hero-actions">
-      <a href="https://wa.me/917083328631" class="btn-gold" target="_blank">WhatsApp Us Now →</a>
-      <a href="#what" class="btn-ghost">See What You Get</a>
+      <a href="https://wa.me/917083328631" class="btn-gold" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Message us on WhatsApp
+      </a>
+      <a href="#gym" class="btn-ghost">See what we build</a>
     </div>
   </div>
 
   <div class="hero-price-badge">
     <div class="price-circle">
-      <div class="price-num">20%</div>
-      <div class="price-label">of market price</div>
+      <span class="price-num">20%</span>
+      <span class="price-label">of what agencies quote</span>
     </div>
-    <p class="price-sub">Others charge ₹15K+<br>We charge ₹4,500</p>
+    <p class="price-sub">Every quote given<br>directly on WhatsApp.</p>
   </div>
 </section>
 
 <!-- TICKER -->
-<div class="ticker">
+<div class="ticker" aria-hidden="true">
   <div class="ticker-inner">
-    <span class="ticker-item">Website in 5 Days <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Member Management System <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Expiry Reminders <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">WhatsApp Integration <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Starting at ₹4,500 <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Free Hosting for 1 Year <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">100+ Gyms Can't Be Wrong <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Website in 5 Days <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Member Management System <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Expiry Reminders <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">WhatsApp Integration <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Starting at ₹4,500 <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">Free Hosting for 1 Year <span class="ticker-dot">◆</span></span>
-    <span class="ticker-item">100+ Gyms Can't Be Wrong <span class="ticker-dot">◆</span></span>
+    <span class="ticker-item">Gym website &amp; member CRM <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Expiry &amp; renewal reminders <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Final-year project mentorship <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">AI/ML &#183; Web &#183; Data &#183; IoT <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Resume &amp; portfolio builds <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Hosting handled for you <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Gym website &amp; member CRM <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Expiry &amp; renewal reminders <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Final-year project mentorship <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">AI/ML &#183; Web &#183; Data &#183; IoT <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Resume &amp; portfolio builds <span class="ticker-dot">&#9670;</span></span>
+    <span class="ticker-item">Hosting handled for you <span class="ticker-dot">&#9670;</span></span>
   </div>
 </div>
 
-<!-- PROBLEM -->
-<section class="problem" id="problem">
-  <div class="problem-inner">
-    <div>
-      <p class="s-eyebrow">The Real Problem</p>
-      <h2 class="s-title">Your gym is great.<br>Nobody<br><span style="color:var(--gold)">knows it.</span></h2>
-      <p class="s-body" style="margin-top:20px">Every day people Google "gym near me" and scroll past you — because you don't have a website. Meanwhile your member data is scattered across WhatsApp and paper registers. We fix both. In 5 days. For ₹4,500.</p>
-    </div>
-    <div class="pain-list">
-      <div class="pain-item">
-        <div class="pain-num">01</div>
-        <div>
-          <div class="pain-title">No website = invisible on Google</div>
-          <div class="pain-sub">When someone searches "gym in [your city]" you simply don't exist. That's members walking into your competitor instead.</div>
-        </div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-num">02</div>
-        <div>
-          <div class="pain-title">Members expire — you find out too late</div>
-          <div class="pain-sub">You realize a member hasn't paid only when you see them walk in. By then they've already decided to quit. Automatic reminders fix this.</div>
-        </div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-num">03</div>
-        <div>
-          <div class="pain-title">Agencies want ₹15,000–₹50,000</div>
-          <div class="pain-sub">Most web agencies treat gyms like big corporations. Big quotes, slow delivery, zero gym domain knowledge. We know exactly what a gym needs.</div>
-        </div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-num">04</div>
-        <div>
-          <div class="pain-title">Paper registers lose data</div>
-          <div class="pain-sub">Member left? Plan still running? Payment collected? Nobody knows. A digital system makes this zero-effort to track.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT WE BUILD -->
-<section class="what" id="what">
-  <div class="what-inner">
-    <div class="what-header">
+<!-- ══ DIVISION ONE: GYM ══ -->
+<section class="sec sec-dark" id="gym">
+  <div class="wrap">
+    <div class="split">
       <div>
-        <p class="s-eyebrow">What You Get</p>
-        <h2 class="s-title">Two products.<br>One crazy<br><span style="color:var(--gold)">low price.</span></h2>
+        <div class="div-marker"><span class="div-marker-bar"></span><span>Division one &#183; Gym software</span></div>
+        <h2 class="s-title">Your gym is good.<br>Your paperwork<br>is costing you.</h2>
       </div>
-      <p class="s-body">Every gym we work with gets a professional website AND a full member management system. Not one or the other. Both. At a price that makes agencies cry.</p>
+      <p class="s-body">Members expire without you noticing. Payments live in a register. New people search online and never find you. One website plus one member system fixes all three, and you run it from your phone.</p>
     </div>
+
+    <div class="split" style="margin-bottom:56px">
+      <div class="pain-list">
+        <div class="pain-item">
+          <span class="pain-mark"></span>
+          <div>
+            <div class="pain-title">People search, you don't appear</div>
+            <div class="pain-sub">Someone looks up a gym in your area and walks into whoever shows up first. Without a site, that is never you.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-mark"></span>
+          <div>
+            <div class="pain-title">You learn about an expiry too late</div>
+            <div class="pain-sub">By the time you notice a member stopped paying, they have already decided to leave. A reminder three days early keeps them.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-mark"></span>
+          <div>
+            <div class="pain-title">The register loses what the register holds</div>
+            <div class="pain-sub">Who paid, which plan, when it ends. One spilled chai and a year of records is gone.</div>
+          </div>
+        </div>
+        <div class="pain-item">
+          <span class="pain-mark"></span>
+          <div>
+            <div class="pain-title">Agency quotes are built for corporates</div>
+            <div class="pain-sub">City agencies quote a gym the way they quote a company, then take two months. We know what a gym actually needs and skip the rest.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="principle" style="margin-top:0">
+          <h4>You get both, not one or the other</h4>
+          <p>Every gym we work with gets the public website and the member management system together. The website brings people in. The system keeps them paying. Separating them never made sense to us.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="features-grid">
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="M14 32l-2 4M26 32l2 4M10 36h20"/><path d="M4 24h32"/></svg>
-        <div class="feat-title">Premium Website</div>
-        <div class="feat-body">Mobile-first, lightning fast, professional design. Shows your gym's equipment, plans, location, WhatsApp button. Free hosting for 1 year on Vercel.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="M14 32l-2 4M26 32l2 4M10 36h20M4 24h32"/></svg>
+        <h3 class="feat-title">The public website</h3>
+        <p class="feat-body">Mobile first and fast. Your equipment, your plans, your timings, your location on the map, and a WhatsApp button people actually press. Hosting handled on our side.</p>
       </div>
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="14" r="6"/><path d="M4 34c0-6.6 5.4-12 12-12"/><path d="M28 22v12M22 28h12"/></svg>
-        <div class="feat-title">Member Management</div>
-        <div class="feat-body">Add members, set plans, track payments, mark active/inactive. Full dashboard with stats. Works on mobile and laptop. No app to install.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="14" r="6"/><path d="M4 34c0-6.6 5.4-12 12-12M28 22v12M22 28h12"/></svg>
+        <h3 class="feat-title">Member management</h3>
+        <p class="feat-body">Add members, set their plan, record payments, mark them active or inactive. Opens in the browser on your phone or laptop. Nothing to install.</p>
       </div>
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="14"/><path d="M20 12v8l6 4"/><path d="M8 8l4 4"/></svg>
-        <div class="feat-title">Expiry Reminders</div>
-        <div class="feat-body">Dashboard shows who expires in 3 and 5 days. One-tap WhatsApp reminder sent directly to the member. Never lose a renewal again.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="20" cy="20" r="14"/><path d="M20 12v8l6 4M8 8l4 4"/></svg>
+        <h3 class="feat-title">Renewal reminders</h3>
+        <p class="feat-body">The dashboard shows who expires in the next few days. One tap sends them a WhatsApp message. This is the feature that pays for the whole thing.</p>
       </div>
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="8" width="28" height="24" rx="3"/><path d="M14 8v24M6 16h28M6 24h8"/></svg>
-        <div class="feat-title">Payment History</div>
-        <div class="feat-body">Every payment recorded automatically. See who paid, how much, which plan. Full history per member. Total revenue at a glance.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="6" y="8" width="28" height="24" rx="3"/><path d="M14 8v24M6 16h28M6 24h8"/></svg>
+        <h3 class="feat-title">Payment history</h3>
+        <p class="feat-body">Every payment stored against the member. Who paid, how much, which plan, which month. Your monthly collection total on one screen.</p>
       </div>
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4z"/><path d="M12 20l6 6 10-12"/></svg>
-        <div class="feat-title">Cardio / Non-Cardio Split</div>
-        <div class="feat-body">Dashboard shows cardio vs non-cardio members separately. Filter your full member list by plan type instantly. Built for how gyms actually work.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4z"/><path d="M12 20l6 6 10-12"/></svg>
+        <h3 class="feat-title">Plans split the way you think</h3>
+        <p class="feat-body">Cardio and non-cardio counted separately, because that is how you price and how you staff. Filter the member list by plan in one tap.</p>
       </div>
       <div class="feat-card">
-        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="22" height="20" rx="3"/><path d="M26 16l10-6v20l-10-6"/></svg>
-        <div class="feat-title">WhatsApp Button</div>
-        <div class="feat-body">Website has a floating WhatsApp button. Members message you directly. New members see your site and contact you in one tap. Zero friction.</div>
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="10" width="22" height="20" rx="3"/><path d="M26 16l10-6v20l-10-6"/></svg>
+        <h3 class="feat-title">We stay on call</h3>
+        <p class="feat-body">Plan prices change, timings change, you want a photo swapped. Message us and it is done. You never touch code.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="pricing-inner">
-    <div class="pricing-header">
-      <p class="s-eyebrow" style="justify-content:center">Pricing</p>
-      <h2 class="s-title" style="text-align:center">Transparent.<br>Affordable.<br><span style="color:var(--gold)">No surprises.</span></h2>
-      <p style="color:var(--muted);font-size:15px;margin-top:16px">While agencies quote ₹15,000 to ₹50,000 for the same thing — we charge a fraction. We keep overhead zero and pass those savings to you.</p>
+<!-- ══ DIVISION TWO: STUDENTS ══ -->
+<section class="sec sec-black" id="students">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="div-marker"><span class="div-marker-bar"></span><span>Division two &#183; Student lab</span></div>
+        <h2 class="s-title">Build your final<br>year project.<br>With someone<br>who has shipped.</h2>
+      </div>
+      <p class="s-body">For CS, IT and AI/ML students who want to come out of final year with a project they can defend in a viva, explain in an interview, and put on a portfolio. You write the code. We make sure it works, and that you understand it.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-tier">Website Only</div>
-        <div class="price-amount"><sup>₹</sup>2,100</div>
-        <div class="price-desc">Professional gym website — perfect to get started
-          <div style="margin-top:6px;font-size:10px;color:#888;border-top:1px solid #222;padding-top:6px">* Includes one-time setup fee.</div>
-        </div>
-        <ul class="price-feats">
-          <li><span class="check">✓</span> 5-page professional website</li>
-          <li><span class="check">✓</span> Mobile responsive</li>
-          <li><span class="check">✓</span> WhatsApp & call button</li>
-          <li><span class="check">✓</span> Google Maps embed</li>
-          <li><span class="check">✓</span> Free hosting for 1 year</li>
-          <li><span class="check">✓</span> Delivered in 3 days</li>
-        </ul>
-        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+
+    <div class="principle">
+      <h4>How this works, clearly</h4>
+      <p>We are a mentorship lab, not a project shop. We help you choose a topic, design the architecture, review your code, unblock you when you are stuck, and prepare you for the viva. We do not hand over finished projects for you to submit as your own, and we will say no if that is what you are after. The students who get the most out of this are the ones who want to actually learn it.</p>
+    </div>
+
+    <div class="features-grid" style="margin-top:50px">
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 6l14 7-14 7-14-7 14-7z"/><path d="M10 17v8c0 2 4.5 5 10 5s10-3 10-5v-8"/></svg>
+        <h3 class="feat-title">Topic selection</h3>
+        <p class="feat-body">A topic that is genuinely doable in your timeline, matches your syllabus requirements, and is interesting enough that a viva panel engages with it instead of nodding through.</p>
       </div>
-      <div class="price-card featured">
-        <div class="price-tier">Website + CRM</div>
-        <div class="price-amount"><sup>₹</sup>4,500</div>
-        <div class="price-desc">Website + Member Management CRM — all in one
-          <div style="margin-top:6px;font-size:10px;color:#888;border-top:1px solid #222;padding-top:6px">* Includes one-time setup fee. Hosting free for 1 year.</div>
-        </div>
-        <ul class="price-feats">
-          <li><span class="check">✓</span> Everything in Website plan</li>
-          <li><span class="check">✓</span> Full member CRM system</li>
-          <li><span class="check">✓</span> Expiry reminders (3 & 5 days)</li>
-          <li><span class="check">✓</span> Payment history tracking</li>
-          <li><span class="check">✓</span> Dashboard with live stats</li>
-          <li><span class="check">✓</span> Cardio / Non-Cardio split</li>
-          <li><span class="check">✓</span> Delivered in 5 days</li>
-        </ul>
-        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="7" width="30" height="22" rx="3"/><path d="M14 20l-4-4 4-4M26 12l4 4-4 4M22 10l-4 12"/></svg>
+        <h3 class="feat-title">Architecture &amp; code review</h3>
+        <p class="feat-body">Weekly sessions on your actual repository. Structure, data flow, model choice, where it will break. The feedback a good senior would give you if you had one.</p>
       </div>
-      <div class="price-card">
-        <div class="price-tier">CRM Maintenance</div>
-        <div class="price-amount"><sup>₹</sup>150<span style="font-size:20px;color:var(--muted)">/mo</span></div>
-        <div class="price-desc">Monthly CRM maintenance — keep everything running smooth</div>
-        <ul class="price-feats">
-          <li><span class="check">✓</span> Monthly CRM support</li>
-          <li><span class="check">✓</span> Bug fixes & updates</li>
-          <li><span class="check">✓</span> Priority WhatsApp support</li>
-          <li><span class="check">✓</span> Plan price updates</li>
-          <li><span class="check">✓</span> We handle everything tech</li>
-          <li><span class="check" style="color:#888">*</span> Custom updates after setup charged separately based on requirement</li>
-        </ul>
-        <button class="price-btn" onclick="window.open('https://wa.me/917083328631','_blank')">Get Started →</button>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="18" cy="18" r="11"/><path d="M26 26l8 8"/></svg>
+        <h3 class="feat-title">Debugging support</h3>
+        <p class="feat-body">Stuck for three days on an error nobody around you can read? Send it across. We find it with you and explain why it happened, so the next one takes an hour.</p>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="4" width="24" height="32" rx="3"/><path d="M14 13h12M14 20h12M14 27h7"/></svg>
+        <h3 class="feat-title">Report &amp; documentation coaching</h3>
+        <p class="feat-body">How to structure the report, what each chapter needs, how to present results and diagrams properly. We teach you the format and review your drafts. You write it.</p>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 5v10M20 25v10M8 20h10M26 20h6"/><circle cx="20" cy="20" r="5"/></svg>
+        <h3 class="feat-title">Viva &amp; demo preparation</h3>
+        <p class="feat-body">A mock viva where we ask what the panel will ask. Most projects lose marks not on the build but on the student freezing when questioned about it.</p>
+      </div>
+      <div class="feat-card">
+        <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="6" y="9" width="28" height="22" rx="3"/><path d="M6 17h28M12 24h8"/></svg>
+        <h3 class="feat-title">Resume &amp; portfolio</h3>
+        <p class="feat-body">A resume that gets past screening, a GitHub that is readable, and a portfolio site that shows your work. Built properly once, used for every application you make.</p>
       </div>
     </div>
-    <p class="pricing-note">Market average for similar work: <span>₹15,000 – ₹50,000</span>. You pay <span>₹4,500</span>. That's not a typo.</p>
+
+    <h3 style="font-family:var(--font-d);font-size:20px;margin-top:70px;margin-bottom:6px;color:var(--white);font-weight:700">Domains we mentor in</h3>
+    <p style="font-size:15px;color:var(--muted)">Computer-side only. We stay in what we actually know.</p>
+    <div class="domains">
+      <div class="domain-chip"><b>AI &amp; Machine Learning</b>models, training, evaluation</div>
+      <div class="domain-chip"><b>Data Science</b>analysis, pipelines, dashboards</div>
+      <div class="domain-chip"><b>Web Development</b>full stack, APIs, deployment</div>
+      <div class="domain-chip"><b>Computer Vision</b>detection, recognition, OCR</div>
+      <div class="domain-chip"><b>NLP &amp; LLM apps</b>chatbots, search, summarisation</div>
+      <div class="domain-chip"><b>IoT &amp; Embedded</b>sensors, dashboards, alerts</div>
+      <div class="domain-chip"><b>Cloud &amp; DevOps</b>hosting, CI, containers</div>
+      <div class="domain-chip"><b>Cybersecurity</b>auth, testing, secure design</div>
+    </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="how-inner">
-    <div class="how-header">
-      <p class="s-eyebrow" style="justify-content:center">Process</p>
-      <h2 class="s-title" style="text-align:center">Live in <span style="color:var(--gold)">5 days.</span><br>Zero hassle.</h2>
+<!-- ══ PRICING PHILOSOPHY ══ -->
+<section class="price-philosophy" id="pricing">
+  <div class="pp-inner">
+    <div class="div-marker" style="justify-content:center"><span class="div-marker-bar"></span><span>Pricing</span></div>
+    <div class="pp-big">20%</div>
+    <p class="pp-caption">of what city agencies and institutes quote.</p>
+    <p class="pp-body">We don't publish a rate card, because a four-page gym site and a six-month mentorship are not the same job and pretending otherwise just wastes your time. Tell us what you need on WhatsApp and you get a fixed number back the same day, before any work starts. No deposit to find out the price, no hourly meter, no revision invoices.</p>
+    <a href="https://wa.me/917083328631" class="btn-gold" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Get your quote
+    </a>
+    <div class="pp-points">
+      <div class="pp-point">
+        <h5>Why we are cheaper</h5>
+        <p>No office, no sales team, no project manager forwarding your messages. You talk to the person building it. That removes most of an agency's cost.</p>
+      </div>
+      <div class="pp-point">
+        <h5>What is fixed</h5>
+        <p>The number you are quoted is the number you pay. Changes during the build are included. Anything genuinely new gets quoted separately, before it is done.</p>
+      </div>
+      <div class="pp-point">
+        <h5>What continues</h5>
+        <p>Hosting, small edits and support run on a small monthly amount, quoted with your build so you know the full cost upfront.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="sec sec-dark" id="how">
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="div-marker" style="justify-content:center"><span class="div-marker-bar"></span><span>Process</span></div>
+      <h2 class="s-title">Four steps. No meetings.</h2>
+      <p class="s-body" style="margin:0 auto">Same process whether you are a gym owner or a student. Everything runs over WhatsApp.</p>
     </div>
     <div class="steps">
       <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">WhatsApp us</div>
-        <div class="step-body">Send your gym name, photos, plans and pricing. That's all we need to start.</div>
+        <div class="step-num">1</div>
+        <div class="step-title">You message us</div>
+        <div class="step-body">Gym owners send photos, plans and timings. Students send their syllabus requirement and what interests them.</div>
       </div>
       <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">We build it</div>
-        <div class="step-body">Full website + admin system built in 3–5 days. You get a preview link to review.</div>
+        <div class="step-num">2</div>
+        <div class="step-title">We quote</div>
+        <div class="step-body">A fixed number and a timeline, back the same day. If it is not a fit, we say so instead of selling you something.</div>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">You approve</div>
-        <div class="step-body">Changes? We make them instantly. Happy? We go live. Simple.</div>
+        <div class="step-num">3</div>
+        <div class="step-title">We build or mentor</div>
+        <div class="step-body">Gym work comes back as a preview link to review. Student work runs as scheduled sessions on your own repository.</div>
       </div>
       <div class="step">
-        <div class="step-num">04</div>
+        <div class="step-num">4</div>
         <div class="step-title">You go live</div>
-        <div class="step-body">Site is deployed free. We hand over the admin panel. Done. You're online.</div>
+        <div class="step-body">Site deployed and the admin panel handed over. Students walk into the viva ready for the questions.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RESULTS -->
-<section class="results" id="results">
-  <div class="results-inner">
-    <div style="text-align:center;margin-bottom:0">
-      <p class="s-eyebrow" style="justify-content:center">By The Numbers</p>
-      <h2 class="s-title" style="text-align:center">Built for gyms.<br>Priced for <span style="color:var(--gold)">real people.</span></h2>
-    </div>
-    <div class="results-grid">
-      <div class="result-card">
-        <div class="result-num">5</div>
-        <div class="result-label">Days to go live</div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">₹4.5K</div>
-        <div class="result-label">Starting price</div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">20%</div>
-        <div class="result-label">Of market price</div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">∞</div>
-        <div class="result-label">Free hosting for 1 year</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
+<!-- ══ FINAL CTA ══ -->
 <div class="cta-final">
-  <h2>STOP LOSING<br>MEMBERS TO<br>GOOGLE.</h2>
-  <p>Your gym deserves to be found. Let's build your website this week.</p>
-  <a href="https://wa.me/917083328631" class="cta-wa" target="_blank">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    Chat on WhatsApp — It's Free
+  <h2>ONE MESSAGE<br>IS ALL IT TAKES.</h2>
+  <p>Ask a question, get a quote, or just check whether we are the right people for what you need. No cost to find out.</p>
+  <a href="https://wa.me/917083328631" class="cta-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Chat on WhatsApp
   </a>
+  <p class="cta-number">or save the number &#8212; <b>70833 28631</b></p>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
-    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 52 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="0" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
       <rect x="49" y="2" width="3" height="22" rx="1.5" fill="#e8a020"/>
       <polyline points="4,13 9,13 13,4 17,22 21,8 25,18 29,13 48,13" fill="none" stroke="#e8a020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <div class="footer-logo-name">Fit<span>Tech</span> Services</div>
   </div>
-  <p class="footer-copy">© 2026 FitTech Services. Built for gyms. Priced for real people.</p>
+  <p class="footer-copy">&#169; 2026 FitTech Services &#183; Maharashtra, India</p>
   <div class="footer-links">
-    <a href="#what">Services</a>
+    <a href="#gym">Gym software</a>
+    <a href="#students">Student lab</a>
     <a href="#pricing">Pricing</a>
-    <a href="#how">Process</a>
-    <a href="https://wa.me/917083328631">Contact</a>
+    <a href="https://wa.me/917083328631" target="_blank" rel="noopener">Contact</a>
   </div>
 </footer>
+
+<!-- ══════ ADMIN ══════ -->
+<style>
+.ft-overlay{display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center;background:rgba(0,0,0,.95);backdrop-filter:blur(8px);padding:20px}
+.ft-overlay.open{display:flex}
+#ft-admin.open{display:flex}
+.ft-login-box{background:#141414;border:1px solid #2a2a2a;border-radius:8px;padding:42px 34px;width:320px;text-align:center;position:relative}
+.ft-login-logo{font-family:'Syne',sans-serif;font-size:22px;color:#e8a020;letter-spacing:1px;margin-bottom:4px;font-weight:800}
+.ft-login-sub{font-size:11px;color:#8a8578;letter-spacing:2px;margin-bottom:26px}
+.ft-login-box input{width:100%;background:#0c0c0c;border:1px solid #2a2a2a;color:#f0ede8;padding:10px 12px;border-radius:5px;font-size:13px;margin-bottom:10px;outline:none;font-family:'Barlow',sans-serif}
+.ft-login-box input:focus{border-color:#e8a020}
+.ft-login-btn{width:100%;background:#e8a020;color:#000;border:none;padding:12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Barlow',sans-serif}
+.ft-close-btn{position:absolute;top:12px;right:14px;background:none;border:none;color:#8a8578;font-size:20px;cursor:pointer;line-height:1}
+#ft-admin{display:none;position:fixed;inset:0;z-index:400;background:#060606;overflow:hidden;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.ft-topbar{background:#0c0c0c;border-bottom:1px solid #222;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.ft-layout{display:flex;flex:1;overflow:hidden}
+.ft-sidebar{width:218px;background:#0c0c0c;border-right:1px solid #222;display:flex;flex-direction:column;flex-shrink:0}
+.ft-sidebar-logo{padding:17px;font-family:'Syne',sans-serif;font-size:14px;color:#e8a020;letter-spacing:1px;border-bottom:1px solid #222;font-weight:800}
+.ft-sidebar-logo span{display:block;font-family:'Barlow',sans-serif;font-size:10px;color:#8a8578;letter-spacing:2px;margin-top:2px}
+.ft-nav-item{display:flex;align-items:center;gap:10px;padding:13px 18px;color:#8a8578;cursor:pointer;font-size:13px;border-left:2px solid transparent;transition:all .15s;font-family:'Barlow',sans-serif}
+.ft-nav-item:hover{color:#f0ede8;background:rgba(255,255,255,.02)}
+.ft-nav-item.active{color:#e8a020;border-left-color:#e8a020;background:rgba(232,160,32,.07)}
+.ft-sidebar-bottom{margin-top:auto;padding:14px;border-top:1px solid #222;display:flex;flex-direction:column;gap:7px}
+.ft-add-btn{background:#e8a020;color:#000;border:none;padding:11px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Barlow',sans-serif;transition:background .2s;width:100%}
+.ft-add-btn:hover{background:#f5c04a}
+.ft-logout-btn,.ft-back-btn{width:100%;background:transparent;border:1px solid #2a2a2a;color:#8a8578;padding:9px;border-radius:5px;font-size:11px;cursor:pointer;letter-spacing:.5px;font-family:'Barlow',sans-serif;transition:all .2s}
+.ft-logout-btn:hover{border-color:#e84040;color:#e84040}
+.ft-back-btn:hover{border-color:#f0ede8;color:#f0ede8}
+.ft-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.ft-content{padding:20px;flex:1;overflow-y:auto}
+.ft-page-title{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;color:#f0ede8}
+.ft-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.ft-stat{background:#141414;border:1px solid #222;border-radius:8px;padding:16px}
+.ft-stat-label{font-size:11px;color:#8a8578;margin-bottom:6px;font-family:'Barlow',sans-serif}
+.ft-stat-num{font-family:'Syne',sans-serif;font-size:30px;font-weight:700;line-height:1}
+.ft-stat.gold .ft-stat-num{color:#e8a020}
+.ft-stat.green .ft-stat-num{color:#1db954}
+.ft-stat.red .ft-stat-num{color:#e84040}
+.ft-stat.blue .ft-stat-num{color:#3b82f6}
+.ft-due-card{background:#141414;border:1px solid #222;border-radius:8px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;border-left:3px solid #e8a020;flex-wrap:wrap}
+.ft-due-card.overdue{border-left-color:#e84040}
+.ft-due-name{font-size:14px;font-weight:600;color:#f0ede8}
+.ft-due-gym{font-size:12px;color:#8a8578;margin-top:2px}
+.ft-due-plan{font-size:11px;color:#555;margin-top:4px}
+.ft-table-wrap{background:#141414;border:1px solid #222;border-radius:8px;overflow:hidden}
+.ft-table-header{padding:14px 18px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+table.ft-table{width:100%;border-collapse:collapse}
+table.ft-table thead tr{background:#0c0c0c}
+table.ft-table th{padding:10px 14px;text-align:left;font-size:11px;color:#8a8578;font-weight:400;border-bottom:1px solid #222;font-family:'Barlow',sans-serif;white-space:nowrap}
+table.ft-table td{padding:12px 14px;border-bottom:1px solid #222;vertical-align:middle;font-size:12.5px;font-family:'Barlow',sans-serif;color:#f0ede8}
+table.ft-table tbody tr:last-child td{border-bottom:none}
+table.ft-table tbody tr:hover td{background:rgba(255,255,255,.02)}
+.ft-badge{display:inline-flex;align-items:center;font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
+.ft-badge.green{background:#0a1f10;color:#1db954}
+.ft-badge.red{background:#1f0a0a;color:#e84040}
+.ft-badge.amber{background:#1f1508;color:#e8a020}
+.ft-badge.grey{background:#1a1a1a;color:#8a8578}
+.ft-action-btns{display:flex;gap:4px;flex-wrap:wrap}
+.ft-act-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#8a8578;padding:5px 10px;border-radius:4px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'Barlow',sans-serif;white-space:nowrap}
+.ft-act-btn:hover{border-color:#e8a020;color:#e8a020}
+.ft-act-btn.success:hover{border-color:#1db954;color:#1db954}
+.ft-act-btn.danger:hover{border-color:#e84040;color:#e84040}
+.ft-empty{text-align:center;padding:40px;color:#8a8578;font-size:13px;font-family:'Barlow',sans-serif}
+.ft-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;align-items:center;justify-content:center;padding:20px}
+.ft-modal-wrap.open{display:flex}
+.ft-modal{background:#141414;border:1px solid #2a2a2a;border-radius:8px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto}
+.ft-modal-head{padding:16px 20px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#141414;z-index:2}
+.ft-modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#f0ede8}
+.ft-modal-body{padding:18px}
+.ft-modal-foot{padding:12px 20px;border-top:1px solid #222;display:flex;gap:8px;justify-content:flex-end}
+.ft-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.ft-form-row.full{grid-template-columns:1fr}
+.ft-form-group{display:flex;flex-direction:column;gap:4px}
+.ft-form-label{font-size:11px;color:#8a8578;font-family:'Barlow',sans-serif}
+.ft-form-input,.ft-form-select{background:#0c0c0c;border:1px solid #2a2a2a;color:#f0ede8;padding:9px 11px;border-radius:5px;font-size:12.5px;outline:none;transition:border-color .2s;width:100%;font-family:'Barlow',sans-serif}
+.ft-form-input:focus,.ft-form-select:focus{border-color:#e8a020}
+.ft-form-select option{background:#0c0c0c}
+.ft-btn-save{background:#e8a020;color:#000;border:none;padding:10px 22px;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'Barlow',sans-serif}
+.ft-btn-cancel{background:transparent;border:1px solid #2a2a2a;color:#8a8578;padding:10px 16px;border-radius:5px;font-size:12.5px;cursor:pointer;font-family:'Barlow',sans-serif}
+.ft-btn-cancel:hover{border-color:#f0ede8;color:#f0ede8}
+.ft-reminder-card{background:#141414;border:1px solid #222;border-radius:8px;padding:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.ft-reminder-info{flex:1;min-width:180px}
+.ft-toast{position:fixed;bottom:22px;right:22px;z-index:700;background:#1a1a1a;border:1px solid #2a2a2a;color:#f0ede8;padding:10px 16px;border-radius:7px;font-size:12.5px;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;font-family:'Barlow',sans-serif}
+.ft-toast.show{transform:translateY(0);opacity:1}
+.ft-toast.success{border-left:3px solid #1db954}
+.ft-toast.error{border-left:3px solid #e84040}
+@media(max-width:768px){
+  .ft-sidebar{display:none}
+  .ft-stats{grid-template-columns:1fr 1fr}
+  .ft-form-row{grid-template-columns:1fr}
+}
+</style>
+
+<div class="ft-overlay" id="ft-login">
+  <div class="ft-login-box">
+    <button class="ft-close-btn" onclick="closeFTLogin()" aria-label="Close">&#10005;</button>
+    <div class="ft-login-logo">FitTech</div>
+    <div class="ft-login-sub">Client manager</div>
+    <input type="text" id="ft-user" placeholder="Username" autocomplete="username"/>
+    <input type="password" id="ft-pass" placeholder="Password" autocomplete="current-password"/>
+    <button class="ft-login-btn" onclick="doFTLogin()">Open</button>
+    <div id="ft-login-err" style="color:#e84040;font-size:11.5px;margin-top:8px;min-height:16px"></div>
+  </div>
+</div>
+
+<div id="ft-admin">
+  <div class="ft-topbar">
+    <div class="ft-page-title" id="ft-page-title">Dashboard</div>
+    <button class="ft-add-btn" onclick="ftOpenAddClient()" style="width:auto;padding:9px 18px">Add client</button>
+  </div>
+  <div class="ft-layout">
+    <div class="ft-sidebar">
+      <div class="ft-sidebar-logo">FitTech<span>Client manager</span></div>
+      <nav style="padding-top:6px">
+        <div class="ft-nav-item active" data-page="dashboard" onclick="ftShowPage('dashboard')">Dashboard</div>
+        <div class="ft-nav-item" data-page="clients" onclick="ftShowPage('clients')">Clients</div>
+        <div class="ft-nav-item" data-page="payments" onclick="ftShowPage('payments')">Payments</div>
+        <div class="ft-nav-item" data-page="reminders" onclick="ftShowPage('reminders')">Reminders</div>
+      </nav>
+      <div class="ft-sidebar-bottom">
+        <button class="ft-add-btn" onclick="ftOpenAddClient()">Add client</button>
+        <button class="ft-back-btn" onclick="doFTLogout()">Back to website</button>
+        <button class="ft-logout-btn" onclick="doFTLogout()">Log out</button>
+      </div>
+    </div>
+    <div class="ft-main">
+      <div class="ft-content">
+        <div id="ft-page-dashboard">
+          <div class="ft-stats">
+            <div class="ft-stat gold"><div class="ft-stat-label">Total clients</div><div class="ft-stat-num" id="ft-stat-total">0</div></div>
+            <div class="ft-stat green"><div class="ft-stat-label">Active</div><div class="ft-stat-num" id="ft-stat-active">0</div></div>
+            <div class="ft-stat red"><div class="ft-stat-label">Due / overdue</div><div class="ft-stat-num" id="ft-stat-due">0</div></div>
+            <div class="ft-stat blue"><div class="ft-stat-label">This month</div><div class="ft-stat-num" id="ft-stat-rev">0</div></div>
+            <div class="ft-stat gold"><div class="ft-stat-label">Total collected</div><div class="ft-stat-num" id="ft-stat-totalrev">0</div></div>
+          </div>
+          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:#f0ede8">Due this week</div>
+          <div id="ft-due-cards"></div>
+        </div>
+        <div id="ft-page-clients" style="display:none">
+          <div class="ft-table-wrap">
+            <div class="ft-table-header"><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#f0ede8">All clients</div></div>
+            <div style="overflow-x:auto">
+              <table class="ft-table"><thead><tr><th>Owner</th><th>Business</th><th>Plan</th><th>Next payment</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="ft-clients-tbody"></tbody></table>
+            </div>
+          </div>
+        </div>
+        <div id="ft-page-payments" style="display:none">
+          <div class="ft-table-wrap">
+            <div class="ft-table-header"><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#f0ede8">All payments</div></div>
+            <div style="overflow-x:auto">
+              <table class="ft-table"><thead><tr><th>Client</th><th>Amount</th><th>Plan</th><th>Month</th><th>Date</th></tr></thead>
+              <tbody id="ft-payments-tbody"></tbody></table>
+            </div>
+          </div>
+        </div>
+        <div id="ft-page-reminders" style="display:none">
+          <div style="font-size:13px;color:#8a8578;margin-bottom:16px;font-family:'Barlow',sans-serif">Clients with a payment due in the next seven days. One tap sends the reminder.</div>
+          <div id="ft-reminders-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ft-modal-wrap" id="ft-client-modal">
+  <div class="ft-modal">
+    <div class="ft-modal-head"><div class="ft-modal-title" id="ft-modal-title">Add client</div><button class="ft-close-btn" onclick="ftCloseModal('ft-client-modal')" style="position:static" aria-label="Close">&#10005;</button></div>
+    <div class="ft-modal-body">
+      <input type="hidden" id="ft-edit-id"/>
+      <div class="ft-form-row">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-name">Owner name</label><input class="ft-form-input" id="ft-c-name" placeholder="Sandeep"/></div>
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-phone">Phone</label><input class="ft-form-input" id="ft-c-phone" placeholder="10 digits" maxlength="10" inputmode="numeric"/></div>
+      </div>
+      <div class="ft-form-row full">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-gym">Business name</label><input class="ft-form-input" id="ft-c-gym" placeholder="SD Fitness"/></div>
+      </div>
+      <div class="ft-form-row">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-plan">Plan</label>
+          <select class="ft-form-select" id="ft-c-plan">
+            <option value="website">Website only</option>
+            <option value="crm">CRM only</option>
+            <option value="website-crm" selected>Website + CRM</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="mentorship">Student mentorship</option>
+          </select>
+        </div>
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-status">Status</label>
+          <select class="ft-form-select" id="ft-c-status"><option value="active">Active</option><option value="inactive">Inactive</option></select>
+        </div>
+      </div>
+      <div class="ft-form-row">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-start">Start date</label><input class="ft-form-input" type="date" id="ft-c-start"/></div>
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-amount">Amount paid</label><input class="ft-form-input" type="number" id="ft-c-amount" placeholder="0"/></div>
+      </div>
+      <div class="ft-form-row full">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-c-notes">Notes</label><input class="ft-form-input" id="ft-c-notes" placeholder="Monthly Marathi content update agreed"/></div>
+      </div>
+    </div>
+    <div class="ft-modal-foot"><button class="ft-btn-cancel" onclick="ftCloseModal('ft-client-modal')">Cancel</button><button class="ft-btn-save" onclick="ftSaveClient()">Save client</button></div>
+  </div>
+</div>
+
+<div class="ft-modal-wrap" id="ft-pay-modal">
+  <div class="ft-modal" style="max-width:360px">
+    <div class="ft-modal-head"><div class="ft-modal-title">Record payment</div><button class="ft-close-btn" onclick="ftCloseModal('ft-pay-modal')" style="position:static" aria-label="Close">&#10005;</button></div>
+    <div class="ft-modal-body">
+      <input type="hidden" id="ft-pay-id"/>
+      <div style="font-size:13px;color:#e8a020;margin-bottom:14px;font-family:'Barlow',sans-serif" id="ft-pay-name"></div>
+      <div class="ft-form-row">
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-pay-amount">Amount</label><input class="ft-form-input" type="number" id="ft-pay-amount"/></div>
+        <div class="ft-form-group"><label class="ft-form-label" for="ft-pay-date">Date</label><input class="ft-form-input" type="date" id="ft-pay-date"/></div>
+      </div>
+    </div>
+    <div class="ft-modal-foot"><button class="ft-btn-cancel" onclick="ftCloseModal('ft-pay-modal')">Cancel</button><button class="ft-btn-save" onclick="ftSavePayment()">Save payment</button></div>
+  </div>
+</div>
+
+<div class="ft-toast" id="ft-toast"></div>
 
 <script>
 function openMenu(){document.getElementById('mob-menu').classList.add('open');document.body.style.overflow='hidden';}
@@ -693,81 +847,86 @@ function closeMenu(){document.getElementById('mob-menu').classList.remove('open'
 function openFTLogin(){document.getElementById('ft-login').classList.add('open');}
 function closeFTLogin(){document.getElementById('ft-login').classList.remove('open');document.getElementById('ft-login-err').textContent='';}
 function doFTLogin(){
-  const u=document.getElementById('ft-user').value.trim();
-  const p=document.getElementById('ft-pass').value.trim();
+  var u=document.getElementById('ft-user').value.trim();
+  var p=document.getElementById('ft-pass').value.trim();
   if(u==='fittech'&&p==='FitTech@2026'){
     closeFTLogin();
     document.getElementById('ft-admin').classList.add('open');
     document.body.style.overflow='hidden';
-    renderFTAll();
-  } else {document.getElementById('ft-login-err').textContent='Wrong credentials';}
+    ftShowPage('dashboard');
+  } else {document.getElementById('ft-login-err').textContent='Username or password is wrong.';}
 }
-document.addEventListener('DOMContentLoaded',()=>{
-  const lu=document.getElementById('ft-user');
-  const lp=document.getElementById('ft-pass');
-  if(lu)lu.addEventListener('keydown',e=>{if(e.key==='Enter')doFTLogin();});
-  if(lp)lp.addEventListener('keydown',e=>{if(e.key==='Enter')doFTLogin();});
-});
 function doFTLogout(){document.getElementById('ft-admin').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('DOMContentLoaded',function(){
+  var lu=document.getElementById('ft-user'),lp=document.getElementById('ft-pass');
+  if(lu)lu.addEventListener('keydown',function(e){if(e.key==='Enter')doFTLogin();});
+  if(lp)lp.addEventListener('keydown',function(e){if(e.key==='Enter')doFTLogin();});
+  var st=document.getElementById('ft-c-start');if(st)st.value=ftToday();
+});
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('ft-overlay')||e.target.classList.contains('ft-modal-wrap'))e.target.classList.remove('open');
+});
 
-// ── DATA ──
-let ftClients=JSON.parse(localStorage.getItem('ft_clients')||'[]');
-let ftPayments=JSON.parse(localStorage.getItem('ft_payments')||'[]');
-function ftSave(){localStorage.setItem('ft_clients',JSON.stringify(ftClients));localStorage.setItem('ft_payments',JSON.stringify(ftPayments));}
-
-// ── UTILS ──
-function ftToday(){return new Date().toISOString().split('T')[0];}
-function ftFmt(d){if(!d)return'—';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`;}
-function ftDaysUntil(d){return Math.ceil((new Date(d)-new Date(ftToday()))/(864e5));}
-function ftAddMonths(d,n){const dt=new Date(d);dt.setMonth(dt.getMonth()+n);return dt.toISOString().split('T')[0];}
-
-// ── PAGES ──
-function ftShowPage(name){
-  ['dashboard','clients','payments','reminders'].forEach(p=>{
-    const el=document.getElementById('ft-page-'+p);
-    if(el)el.style.display='none';
-  });
-  document.querySelectorAll('.ft-nav-item').forEach(n=>n.classList.remove('active'));
-  const pg=document.getElementById('ft-page-'+name);
-  if(pg)pg.style.display='block';
-  const nav=document.querySelector(`.ft-nav-item[data-page="${name}"]`);
-  if(nav)nav.classList.add('active');
-  document.getElementById('ft-page-title').textContent=
-    name==='dashboard'?'Dashboard':name==='clients'?'Clients':name==='payments'?'Payments':'Monthly Reminders';
-  if(name==='clients')renderFTClients();
-  if(name==='payments')renderFTPayments();
-  if(name==='reminders')renderFTReminders();
-  if(name==='dashboard')renderFTDash();
+/* ── DATA (stored in this browser only) ── */
+var ftClients=[],ftPayments=[];
+try{
+  ftClients=JSON.parse(localStorage.getItem('ft_clients')||'[]');
+  ftPayments=JSON.parse(localStorage.getItem('ft_payments')||'[]');
+}catch(e){ftClients=[];ftPayments=[];}
+function ftSave(){
+  try{
+    localStorage.setItem('ft_clients',JSON.stringify(ftClients));
+    localStorage.setItem('ft_payments',JSON.stringify(ftPayments));
+  }catch(e){ftToast('Could not save to this browser.','error');}
 }
 
-// ── MODALS ──
+/* ── UTILS ── */
+function ftToday(){return new Date().toISOString().split('T')[0];}
+function ftFmt(d){if(!d)return'\u2014';var p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function ftDaysUntil(d){return Math.ceil((new Date(d)-new Date(ftToday()))/864e5);}
+function ftAddMonths(d,n){var dt=new Date(d);dt.setMonth(dt.getMonth()+n);return dt.toISOString().split('T')[0];}
+function ftMoney(n){return '\u20B9'+Number(n||0).toLocaleString('en-IN');}
+function ftEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+var FT_PLANS={'website':'Website only','crm':'CRM only','website-crm':'Website + CRM','maintenance':'Maintenance','mentorship':'Student mentorship'};
+
+/* ── PAGES ── */
+function ftShowPage(name){
+  ['dashboard','clients','payments','reminders'].forEach(function(p){
+    var el=document.getElementById('ft-page-'+p);if(el)el.style.display='none';
+  });
+  document.querySelectorAll('.ft-nav-item').forEach(function(n){n.classList.remove('active');});
+  var pg=document.getElementById('ft-page-'+name);if(pg)pg.style.display='block';
+  var nav=document.querySelector('.ft-nav-item[data-page="'+name+'"]');if(nav)nav.classList.add('active');
+  document.getElementById('ft-page-title').textContent=
+    name==='dashboard'?'Dashboard':name==='clients'?'Clients':name==='payments'?'Payments':'Reminders';
+  if(name==='clients')renderFTClients();
+  else if(name==='payments')renderFTPayments();
+  else if(name==='reminders')renderFTReminders();
+  else renderFTDash();
+}
 function ftOpenModal(id){document.getElementById(id).classList.add('open');}
 function ftCloseModal(id){document.getElementById(id).classList.remove('open');}
-document.addEventListener('click',e=>{
-  if(e.target.classList.contains('ft-overlay'))e.target.classList.remove('open');
-});
-
-function ftToast(msg,type='success'){
-  const t=document.getElementById('ft-toast');
-  t.textContent=msg;t.className='ft-toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),2800);
+function ftToast(msg,type){
+  var t=document.getElementById('ft-toast');
+  t.textContent=msg;t.className='ft-toast '+(type||'success')+' show';
+  setTimeout(function(){t.classList.remove('show');},2800);
 }
 
-// ── ADD/EDIT CLIENT ──
+/* ── CLIENTS ── */
 function ftOpenAddClient(){
   document.getElementById('ft-edit-id').value='';
-  document.getElementById('ft-modal-title').textContent='Add Client';
-  ['ft-c-name','ft-c-gym','ft-c-phone','ft-c-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ft-modal-title').textContent='Add client';
+  ['ft-c-name','ft-c-gym','ft-c-phone','ft-c-notes','ft-c-amount'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('ft-c-plan').value='website-crm';
   document.getElementById('ft-c-start').value=ftToday();
-  document.getElementById('ft-c-amount').value='';
   document.getElementById('ft-c-status').value='active';
   ftOpenModal('ft-client-modal');
 }
 function ftEditClient(id){
-  const c=ftClients.find(x=>x.id===id);if(!c)return;
+  var c=ftClients.filter(function(x){return x.id===id;})[0];if(!c)return;
   document.getElementById('ft-edit-id').value=id;
-  document.getElementById('ft-modal-title').textContent='Edit Client';
+  document.getElementById('ft-modal-title').textContent='Edit client';
   document.getElementById('ft-c-name').value=c.name;
   document.getElementById('ft-c-gym').value=c.gym;
   document.getElementById('ft-c-phone').value=c.phone;
@@ -779,406 +938,149 @@ function ftEditClient(id){
   ftOpenModal('ft-client-modal');
 }
 function ftSaveClient(){
-  const name=document.getElementById('ft-c-name').value.trim();
-  const gym=document.getElementById('ft-c-gym').value.trim();
-  const phone=document.getElementById('ft-c-phone').value.trim();
-  const plan=document.getElementById('ft-c-plan').value;
-  const start=document.getElementById('ft-c-start').value;
-  const amount=parseFloat(document.getElementById('ft-c-amount').value)||0;
-  const notes=document.getElementById('ft-c-notes').value.trim();
-  const status=document.getElementById('ft-c-status').value;
-  if(!name||!gym||!phone){ftToast('Fill required fields','error');return;}
-  const renewal=ftAddMonths(start,1);
-  const editId=document.getElementById('ft-edit-id').value;
+  var name=document.getElementById('ft-c-name').value.trim();
+  var gym=document.getElementById('ft-c-gym').value.trim();
+  var phone=document.getElementById('ft-c-phone').value.trim();
+  var plan=document.getElementById('ft-c-plan').value;
+  var start=document.getElementById('ft-c-start').value||ftToday();
+  var amount=parseFloat(document.getElementById('ft-c-amount').value)||0;
+  var notes=document.getElementById('ft-c-notes').value.trim();
+  var status=document.getElementById('ft-c-status').value;
+  if(!name||!gym||!phone){ftToast('Name, business and phone are needed.','error');return;}
+  var renewal=ftAddMonths(start,1);
+  var editId=document.getElementById('ft-edit-id').value;
   if(editId){
-    const idx=ftClients.findIndex(c=>c.id===editId);
-    if(idx>-1)ftClients[idx]={...ftClients[idx],name,gym,phone,plan,start,renewal,notes,status};
-    ftToast('Client updated');
+    for(var i=0;i<ftClients.length;i++){
+      if(ftClients[i].id===editId){
+        ftClients[i].name=name;ftClients[i].gym=gym;ftClients[i].phone=phone;
+        ftClients[i].plan=plan;ftClients[i].start=start;ftClients[i].renewal=renewal;
+        ftClients[i].notes=notes;ftClients[i].status=status;
+      }
+    }
+    ftToast('Client updated.');
   } else {
-    const id='c_'+Date.now();
-    ftClients.push({id,name,gym,phone,plan,start,renewal,notes,status,joined:ftToday()});
-    if(amount>0)ftPayments.push({id:'p_'+Date.now(),clientId:id,clientName:name,gym,amount,plan,date:ftToday(),month:ftToday().slice(0,7)});
-    ftToast('Client added');
+    var id='c_'+Date.now();
+    ftClients.push({id:id,name:name,gym:gym,phone:phone,plan:plan,start:start,renewal:renewal,notes:notes,status:status,joined:ftToday()});
+    if(amount>0)ftPayments.push({id:'p_'+Date.now(),clientId:id,clientName:name,gym:gym,amount:amount,plan:plan,date:ftToday(),month:ftToday().slice(0,7)});
+    ftToast('Client added.');
   }
   ftSave();ftCloseModal('ft-client-modal');renderFTAll();
 }
+function ftDeleteClient(id){
+  if(!confirm('Delete this client and their payment history? This cannot be undone.'))return;
+  ftClients=ftClients.filter(function(c){return c.id!==id;});
+  ftPayments=ftPayments.filter(function(p){return p.clientId!==id;});
+  ftSave();renderFTAll();ftToast('Client deleted.');
+}
 
-// ── COLLECT PAYMENT ──
+/* ── PAYMENTS ── */
 function ftCollectPayment(id){
-  const c=ftClients.find(x=>x.id===id);if(!c)return;
+  var c=ftClients.filter(function(x){return x.id===id;})[0];if(!c)return;
   document.getElementById('ft-pay-id').value=id;
-  document.getElementById('ft-pay-name').textContent=c.name+' — '+c.gym;
-  document.getElementById('ft-pay-amount').value='100';
+  document.getElementById('ft-pay-name').textContent=c.name+' \u2014 '+c.gym;
+  document.getElementById('ft-pay-amount').value='';
   document.getElementById('ft-pay-date').value=ftToday();
   ftOpenModal('ft-pay-modal');
 }
 function ftSavePayment(){
-  const id=document.getElementById('ft-pay-id').value;
-  const amount=parseFloat(document.getElementById('ft-pay-amount').value)||0;
-  const date=document.getElementById('ft-pay-date').value;
-  const c=ftClients.find(x=>x.id===id);if(!c)return;
-  ftPayments.push({id:'p_'+Date.now(),clientId:id,clientName:c.name,gym:c.gym,amount,plan:c.plan,date,month:date.slice(0,7)});
-  c.renewal=ftAddMonths(date,1);
-  c.status='active';
-  ftSave();ftCloseModal('ft-pay-modal');renderFTAll();ftToast('Payment recorded ✓');
+  var id=document.getElementById('ft-pay-id').value;
+  var amount=parseFloat(document.getElementById('ft-pay-amount').value)||0;
+  var date=document.getElementById('ft-pay-date').value||ftToday();
+  var c=ftClients.filter(function(x){return x.id===id;})[0];if(!c)return;
+  if(amount<=0){ftToast('Enter an amount.','error');return;}
+  ftPayments.push({id:'p_'+Date.now(),clientId:id,clientName:c.name,gym:c.gym,amount:amount,plan:c.plan,date:date,month:date.slice(0,7)});
+  c.renewal=ftAddMonths(date,1);c.status='active';
+  ftSave();ftCloseModal('ft-pay-modal');renderFTAll();ftToast('Payment recorded.');
 }
 
-// ── DELETE ──
-function ftDeleteClient(id){
-  if(!confirm('Delete this client? This cannot be undone.'))return;
-  ftClients=ftClients.filter(c=>c.id!==id);
-  ftPayments=ftPayments.filter(p=>p.clientId!==id);
-  ftSave();renderFTAll();ftToast('Deleted');
-}
-
-// ── PLAN LABELS ──
-const FT_PLANS={'website':'Website Only (₹2,100)','crm':'CRM Only (₹1,800)','website-crm':'Website + CRM (₹4,500)','maintenance':'CRM Maintenance (₹150/mo)'};
-
-// ── RENDER ──
+/* ── RENDER ── */
 function renderFTDash(){
-  const active=ftClients.filter(c=>c.status==='active');
-  const due=ftClients.filter(c=>{const d=ftDaysUntil(c.renewal);return c.status==='active'&&d<=7&&d>=0;});
-  const overdue=ftClients.filter(c=>c.status==='active'&&ftDaysUntil(c.renewal)<0);
-  const totalRev=ftPayments.reduce((s,p)=>s+p.amount,0);
-  const thisMonth=ftToday().slice(0,7);
-  const monthRev=ftPayments.filter(p=>p.month===thisMonth).reduce((s,p)=>s+p.amount,0);
+  var active=ftClients.filter(function(c){return c.status==='active';});
+  var due=ftClients.filter(function(c){var d=ftDaysUntil(c.renewal);return c.status==='active'&&d<=7&&d>=0;});
+  var overdue=ftClients.filter(function(c){return c.status==='active'&&ftDaysUntil(c.renewal)<0;});
+  var totalRev=ftPayments.reduce(function(s,p){return s+p.amount;},0);
+  var thisMonth=ftToday().slice(0,7);
+  var monthRev=ftPayments.filter(function(p){return p.month===thisMonth;}).reduce(function(s,p){return s+p.amount;},0);
   document.getElementById('ft-stat-total').textContent=ftClients.length;
   document.getElementById('ft-stat-active').textContent=active.length;
   document.getElementById('ft-stat-due').textContent=due.length+overdue.length;
-  document.getElementById('ft-stat-rev').textContent='₹'+monthRev.toLocaleString('en-IN');
-  document.getElementById('ft-stat-totalrev').textContent='₹'+totalRev.toLocaleString('en-IN');
-
-  // Due this week
-  const dueHTML=due.length+overdue.length===0?'<div style="color:var(--muted);font-size:12px">No payments due this week 🎉</div>':
-    [...overdue.map(c=>`<div class="ft-due-card overdue"><div><div class="ft-due-name">${c.name}</div><div class="ft-due-gym">${c.gym}</div><div class="ft-due-plan">${FT_PLANS[c.plan]||c.plan}</div></div><div style="text-align:right"><div style="color:#e84040;font-size:11px;font-weight:600">OVERDUE</div><div style="font-size:10px;color:var(--muted)">${ftFmt(c.renewal)}</div><button class="ft-act-btn success" style="margin-top:6px" onclick="ftCollectPayment('${c.id}')">Collect</button></div></div>`),
-    ...due.map(c=>{const d=ftDaysUntil(c.renewal);return`<div class="ft-due-card"><div><div class="ft-due-name">${c.name}</div><div class="ft-due-gym">${c.gym}</div><div class="ft-due-plan">${FT_PLANS[c.plan]||c.plan}</div></div><div style="text-align:right"><div style="color:#e8a020;font-size:20px;font-weight:700">${d}d</div><div style="font-size:10px;color:var(--muted)">${ftFmt(c.renewal)}</div><button class="ft-act-btn success" style="margin-top:6px" onclick="ftCollectPayment('${c.id}')">Collect</button></div></div>`;})].join('');
-  document.getElementById('ft-due-cards').innerHTML=dueHTML;
+  document.getElementById('ft-stat-rev').textContent=ftMoney(monthRev);
+  document.getElementById('ft-stat-totalrev').textContent=ftMoney(totalRev);
+  var html='';
+  if(due.length+overdue.length===0){
+    html='<div style="color:#8a8578;font-size:13px">Nothing due in the next seven days.</div>';
+  } else {
+    html=overdue.map(function(c){
+      return '<div class="ft-due-card overdue"><div><div class="ft-due-name">'+ftEsc(c.name)+'</div><div class="ft-due-gym">'+ftEsc(c.gym)+'</div><div class="ft-due-plan">'+(FT_PLANS[c.plan]||c.plan)+'</div></div>'+
+      '<div style="text-align:right"><div style="color:#e84040;font-size:12px;font-weight:600">Overdue</div><div style="font-size:11px;color:#8a8578">'+ftFmt(c.renewal)+'</div>'+
+      '<button class="ft-act-btn success" style="margin-top:6px" onclick="ftCollectPayment(\''+c.id+'\')">Record payment</button></div></div>';
+    }).join('')+due.map(function(c){
+      var d=ftDaysUntil(c.renewal);
+      return '<div class="ft-due-card"><div><div class="ft-due-name">'+ftEsc(c.name)+'</div><div class="ft-due-gym">'+ftEsc(c.gym)+'</div><div class="ft-due-plan">'+(FT_PLANS[c.plan]||c.plan)+'</div></div>'+
+      '<div style="text-align:right"><div style="color:#e8a020;font-size:20px;font-weight:700">'+d+'d</div><div style="font-size:11px;color:#8a8578">'+ftFmt(c.renewal)+'</div>'+
+      '<button class="ft-act-btn success" style="margin-top:6px" onclick="ftCollectPayment(\''+c.id+'\')">Record payment</button></div></div>';
+    }).join('');
+  }
+  document.getElementById('ft-due-cards').innerHTML=html;
 }
-
 function renderFTClients(){
-  const tbody=document.getElementById('ft-clients-tbody');
-  if(!ftClients.length){tbody.innerHTML='<tr><td colspan="6"><div class="ft-empty">No clients yet — add your first one!</div></td></tr>';return;}
-  tbody.innerHTML=ftClients.map(c=>{
-    const d=ftDaysUntil(c.renewal);
-    const isActive=c.status==='active';
-    const isOverdue=isActive&&d<0;
-    const isDue=isActive&&d>=0&&d<=7;
-    const sb=isOverdue?`<span class="ft-badge red">Overdue</span>`:isDue?`<span class="ft-badge amber">${d}d left</span>`:isActive?`<span class="ft-badge green">Active</span>`:`<span class="ft-badge grey">Inactive</span>`;
-    return`<tr>
-      <td><div style="font-weight:500">${c.name}</div><div style="font-size:10px;color:var(--muted)">${c.phone}</div></td>
-      <td><div style="font-weight:500">${c.gym}</div></td>
-      <td style="font-size:11px;color:var(--muted)">${FT_PLANS[c.plan]||c.plan}</td>
-      <td style="font-size:11px;color:${isOverdue?'#e84040':isDue?'#e8a020':'var(--muted)'}">${ftFmt(c.renewal)}</td>
-      <td>${sb}</td>
-      <td><div class="ft-action-btns">
-        <button class="ft-act-btn" onclick="ftEditClient('${c.id}')">Edit</button>
-        <button class="ft-act-btn success" onclick="ftCollectPayment('${c.id}')">Collect</button>
-        <button class="ft-act-btn danger" onclick="ftDeleteClient('${c.id}')">Del</button>
-      </div></td>
-    </tr>`;
+  var tbody=document.getElementById('ft-clients-tbody');
+  if(!ftClients.length){tbody.innerHTML='<tr><td colspan="6"><div class="ft-empty">No clients yet. Add your first one.</div></td></tr>';return;}
+  tbody.innerHTML=ftClients.map(function(c){
+    var d=ftDaysUntil(c.renewal),isActive=c.status==='active';
+    var isOverdue=isActive&&d<0,isDue=isActive&&d>=0&&d<=7;
+    var sb=isOverdue?'<span class="ft-badge red">Overdue</span>':isDue?'<span class="ft-badge amber">'+d+'d left</span>':isActive?'<span class="ft-badge green">Active</span>':'<span class="ft-badge grey">Inactive</span>';
+    return '<tr><td><div style="font-weight:500">'+ftEsc(c.name)+'</div><div style="font-size:11px;color:#8a8578">'+ftEsc(c.phone)+'</div></td>'+
+      '<td>'+ftEsc(c.gym)+'</td>'+
+      '<td style="font-size:12px;color:#8a8578">'+(FT_PLANS[c.plan]||c.plan)+'</td>'+
+      '<td style="font-size:12px;color:'+(isOverdue?'#e84040':isDue?'#e8a020':'#8a8578')+'">'+ftFmt(c.renewal)+'</td>'+
+      '<td>'+sb+'</td>'+
+      '<td><div class="ft-action-btns">'+
+      '<button class="ft-act-btn" onclick="ftEditClient(\''+c.id+'\')">Edit</button>'+
+      '<button class="ft-act-btn success" onclick="ftCollectPayment(\''+c.id+'\')">Payment</button>'+
+      '<button class="ft-act-btn danger" onclick="ftDeleteClient(\''+c.id+'\')">Delete</button>'+
+      '</div></td></tr>';
   }).join('');
 }
-
 function renderFTPayments(){
-  const tbody=document.getElementById('ft-payments-tbody');
-  if(!ftPayments.length){tbody.innerHTML='<tr><td colspan="5"><div class="ft-empty">No payments yet</div></td></tr>';return;}
-  tbody.innerHTML=[...ftPayments].reverse().map(p=>`<tr>
-    <td><div style="font-weight:500">${p.clientName}</div><div style="font-size:10px;color:var(--muted)">${p.gym}</div></td>
-    <td style="color:#1db954;font-weight:600">₹${p.amount.toLocaleString('en-IN')}</td>
-    <td style="font-size:11px;color:var(--muted)">${FT_PLANS[p.plan]||p.plan}</td>
-    <td style="font-size:11px;color:var(--muted)">${p.month}</td>
-    <td style="font-size:11px;color:var(--muted)">${ftFmt(p.date)}</td>
-  </tr>`).join('');
-}
-
-function renderFTReminders(){
-  const due=ftClients.filter(c=>{const d=ftDaysUntil(c.renewal);return c.status==='active'&&d<=7;});
-  const el=document.getElementById('ft-reminders-list');
-  if(!due.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:20px 0">No payments due in next 7 days 🎉</div>';return;}
-  el.innerHTML=due.map(c=>{
-    const d=ftDaysUntil(c.renewal);
-    const msg=`Hi ${c.name} Sir! 🙏\n\nYe FitTech Services se Yash hoon.\n\nAapka is mahine ka maintenance payment due ho gaya hai — ₹100.\n\nPlease jaldi kar dijiye taaki aapki service uninterrupted rahe! 😊\n\nThank you!`;
-    return`<div class="ft-reminder-card">
-      <div class="ft-reminder-info">
-        <div style="font-weight:600;font-size:14px">${c.name}</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">${c.gym} · ${FT_PLANS[c.plan]||c.plan}</div>
-        <div style="font-size:11px;color:${d<0?'#e84040':'#e8a020'};margin-top:4px">${d<0?'OVERDUE':'Due in '+d+' days'} — ${ftFmt(c.renewal)}</div>
-        ${c.notes?`<div style="font-size:11px;color:var(--muted);margin-top:6px;background:var(--border);padding:6px 8px;border-radius:4px">📝 ${c.notes}</div>`:''}
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
-        <a href="https://wa.me/91${c.phone}?text=${encodeURIComponent(msg)}" target="_blank" class="ft-act-btn success" style="text-decoration:none;text-align:center">Send WhatsApp</a>
-        <button class="ft-act-btn" onclick="ftCollectPayment('${c.id}')">Collect ₹</button>
-      </div>
-    </div>`;
+  var tbody=document.getElementById('ft-payments-tbody');
+  if(!ftPayments.length){tbody.innerHTML='<tr><td colspan="5"><div class="ft-empty">No payments recorded yet.</div></td></tr>';return;}
+  tbody.innerHTML=ftPayments.slice().reverse().map(function(p){
+    return '<tr><td><div style="font-weight:500">'+ftEsc(p.clientName)+'</div><div style="font-size:11px;color:#8a8578">'+ftEsc(p.gym)+'</div></td>'+
+      '<td style="color:#1db954;font-weight:600">'+ftMoney(p.amount)+'</td>'+
+      '<td style="font-size:12px;color:#8a8578">'+(FT_PLANS[p.plan]||p.plan)+'</td>'+
+      '<td style="font-size:12px;color:#8a8578">'+p.month+'</td>'+
+      '<td style="font-size:12px;color:#8a8578">'+ftFmt(p.date)+'</td></tr>';
   }).join('');
 }
-
+function renderFTReminders(){
+  var due=ftClients.filter(function(c){return c.status==='active'&&ftDaysUntil(c.renewal)<=7;});
+  var el=document.getElementById('ft-reminders-list');
+  if(!due.length){el.innerHTML='<div style="color:#8a8578;font-size:13px;padding:18px 0">Nothing due in the next seven days.</div>';return;}
+  el.innerHTML=due.map(function(c){
+    var d=ftDaysUntil(c.renewal);
+    var msg='Hello '+c.name+' ji,\n\nYash here from FitTech Services.\n\nYour monthly payment for '+c.gym+' is due on '+ftFmt(c.renewal)+'.\n\nPlease send it across when you get a moment so the service stays running without a break.\n\nThank you!';
+    return '<div class="ft-reminder-card"><div class="ft-reminder-info">'+
+      '<div style="font-weight:600;font-size:14px">'+ftEsc(c.name)+'</div>'+
+      '<div style="font-size:12px;color:#8a8578;margin-top:2px">'+ftEsc(c.gym)+' \u00B7 '+(FT_PLANS[c.plan]||c.plan)+'</div>'+
+      '<div style="font-size:12px;color:'+(d<0?'#e84040':'#e8a020')+';margin-top:4px">'+(d<0?'Overdue':'Due in '+d+' days')+' \u2014 '+ftFmt(c.renewal)+'</div>'+
+      (c.notes?'<div style="font-size:12px;color:#8a8578;margin-top:6px;background:#1a1a1a;padding:6px 9px;border-radius:4px">'+ftEsc(c.notes)+'</div>':'')+
+      '</div><div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">'+
+      '<a href="https://wa.me/91'+encodeURIComponent(c.phone)+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener" class="ft-act-btn success" style="text-decoration:none;text-align:center">Send WhatsApp</a>'+
+      '<button class="ft-act-btn" onclick="ftCollectPayment(\''+c.id+'\')">Record payment</button>'+
+      '</div></div>';
+  }).join('');
+}
 function renderFTAll(){
   renderFTDash();
-  const cur=document.querySelector('#ft-admin [id^="ft-page-"]:not([style*="none"])');
-  if(cur){
-    const n=cur.id.replace('ft-page-','');
+  var open=document.querySelector('#ft-admin [id^="ft-page-"]:not([style*="none"])');
+  if(open){
+    var n=open.id.replace('ft-page-','');
     if(n==='clients')renderFTClients();
-    if(n==='payments')renderFTPayments();
-    if(n==='reminders')renderFTReminders();
+    else if(n==='payments')renderFTPayments();
+    else if(n==='reminders')renderFTReminders();
   }
 }
 </script>
-
-<!-- FT LOGIN -->
-<div class="ft-overlay" id="ft-login" style="display:none;position:fixed;inset:0;z-index:500;align-items:center;justify-content:center;background:rgba(0,0,0,.95);backdrop-filter:blur(8px)">
-<style>
-.ft-overlay.open{display:flex!important}
-#ft-admin.open{display:flex!important}
-.ft-login-box{background:#141414;border:1px solid #2a2a2a;border-radius:8px;padding:44px 36px;width:320px;text-align:center;position:relative}
-.ft-login-logo{font-family:'Syne',sans-serif;font-size:22px;color:#e8a020;letter-spacing:2px;margin-bottom:4px;font-weight:800}
-.ft-login-sub{font-size:10px;color:#666;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px}
-.ft-login-box input{width:100%;background:#0c0c0c;border:1px solid #2a2a2a;color:#f0ede8;padding:10px 12px;border-radius:5px;font-size:13px;margin-bottom:10px;outline:none;font-family:'Barlow',sans-serif}
-.ft-login-box input:focus{border-color:#e8a020}
-.ft-login-btn{width:100%;background:#e8a020;color:#000;border:none;padding:12px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer}
-.ft-close-btn{position:absolute;top:14px;right:16px;background:none;border:none;color:#666;font-size:20px;cursor:pointer}
-/* ADMIN APP */
-#ft-admin{display:none;position:fixed;inset:0;z-index:400;background:#060606;overflow:hidden;flex-direction:column}
-.ft-topbar{background:#0c0c0c;border-bottom:1px solid #222;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.ft-layout{display:flex;flex:1;overflow:hidden}
-.ft-sidebar{width:220px;background:#0c0c0c;border-right:1px solid #222;display:flex;flex-direction:column;flex-shrink:0}
-.ft-sidebar-logo{padding:18px;font-family:'Syne',sans-serif;font-size:14px;color:#e8a020;letter-spacing:2px;border-bottom:1px solid #222;font-weight:800}
-.ft-sidebar-logo span{display:block;font-family:'Barlow',sans-serif;font-size:10px;color:#666;letter-spacing:3px;margin-top:2px;text-transform:uppercase}
-.ft-nav-item{display:flex;align-items:center;gap:10px;padding:13px 18px;color:#666;cursor:pointer;font-size:13px;border-left:2px solid transparent;transition:all .15s;font-family:'Barlow',sans-serif}
-.ft-nav-item:hover{color:#f0ede8;background:rgba(255,255,255,.02)}
-.ft-nav-item.active{color:#e8a020;border-left-color:#e8a020;background:rgba(232,160,32,.07)}
-.ft-sidebar-bottom{margin-top:auto;padding:14px;border-top:1px solid #222;display:flex;flex-direction:column;gap:7px}
-.ft-add-btn{background:#e8a020;color:#000;border:none;padding:11px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Barlow',sans-serif;transition:background .2s;width:100%}
-.ft-add-btn:hover{background:#f5c04a}
-.ft-logout-btn,.ft-back-btn{width:100%;background:transparent;border:1px solid #2a2a2a;color:#666;padding:9px;border-radius:5px;font-size:11px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:'Barlow',sans-serif;transition:all .2s}
-.ft-logout-btn:hover{border-color:#e84040;color:#e84040}
-.ft-back-btn:hover{border-color:#f0ede8;color:#f0ede8}
-.ft-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.ft-content{padding:20px;flex:1;overflow-y:auto}
-.ft-page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#f0ede8}
-/* STATS */
-.ft-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
-.ft-stat{background:#141414;border:1px solid #222;border-radius:8px;padding:16px}
-.ft-stat-label{font-size:10px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-family:'Barlow',sans-serif}
-.ft-stat-num{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;line-height:1}
-.ft-stat.gold .ft-stat-num{color:#e8a020}
-.ft-stat.green .ft-stat-num{color:#1db954}
-.ft-stat.red .ft-stat-num{color:#e84040}
-.ft-stat.blue .ft-stat-num{color:#3b82f6}
-/* DUE CARDS */
-.ft-due-card{background:#141414;border:1px solid #222;border-radius:8px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;border-left:3px solid #e8a020}
-.ft-due-card.overdue{border-left-color:#e84040}
-.ft-due-name{font-size:14px;font-weight:600;color:#f0ede8}
-.ft-due-gym{font-size:12px;color:#666;margin-top:2px}
-.ft-due-plan{font-size:11px;color:#444;margin-top:4px}
-/* TABLE */
-.ft-table-wrap{background:#141414;border:1px solid #222;border-radius:8px;overflow:hidden}
-.ft-table-header{padding:14px 18px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-table.ft-table{width:100%;border-collapse:collapse}
-table.ft-table thead tr{background:#0c0c0c}
-table.ft-table th{padding:10px 14px;text-align:left;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#666;font-weight:400;border-bottom:1px solid #222;font-family:'Barlow',sans-serif}
-table.ft-table td{padding:12px 14px;border-bottom:1px solid #222;vertical-align:middle;font-size:12px;font-family:'Barlow',sans-serif;color:#f0ede8}
-table.ft-table tbody tr:last-child td{border-bottom:none}
-table.ft-table tbody tr:hover td{background:rgba(255,255,255,.02)}
-.ft-badge{display:inline-flex;align-items:center;font-size:9px;padding:3px 8px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
-.ft-badge.green{background:#0a1f10;color:#1db954}
-.ft-badge.red{background:#1f0a0a;color:#e84040}
-.ft-badge.amber{background:#1f1508;color:#e8a020}
-.ft-badge.grey{background:#1a1a1a;color:#666}
-.ft-action-btns{display:flex;gap:4px;flex-wrap:wrap}
-.ft-act-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#666;padding:5px 10px;border-radius:4px;font-size:10px;cursor:pointer;transition:all .15s;font-family:'Barlow',sans-serif;white-space:nowrap}
-.ft-act-btn:hover{border-color:#e8a020;color:#e8a020}
-.ft-act-btn.success:hover{border-color:#1db954;color:#1db954}
-.ft-act-btn.danger:hover{border-color:#e84040;color:#e84040}
-.ft-empty{text-align:center;padding:40px;color:#666;font-size:13px;font-family:'Barlow',sans-serif}
-/* MODALS */
-.ft-modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;padding:20px}
-.ft-modal-wrap.open{display:flex}
-.ft-modal{background:#141414;border:1px solid #2a2a2a;border-radius:8px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.ft-modal-head{padding:16px 20px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#141414;z-index:2}
-.ft-modal-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#f0ede8}
-.ft-modal-body{padding:18px}
-.ft-modal-foot{padding:12px 20px;border-top:1px solid #222;display:flex;gap:8px;justify-content:flex-end}
-.ft-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.ft-form-row.full{grid-template-columns:1fr}
-.ft-form-group{display:flex;flex-direction:column;gap:4px}
-.ft-form-label{font-size:10px;color:#666;letter-spacing:1.5px;text-transform:uppercase;font-family:'Barlow',sans-serif}
-.ft-form-input,.ft-form-select{background:#0c0c0c;border:1px solid #2a2a2a;color:#f0ede8;padding:9px 11px;border-radius:5px;font-size:12px;outline:none;transition:border-color .2s;width:100%;font-family:'Barlow',sans-serif}
-.ft-form-input:focus,.ft-form-select:focus{border-color:#e8a020}
-.ft-form-select option{background:#0c0c0c}
-.ft-btn-save{background:#e8a020;color:#000;border:none;padding:10px 22px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Barlow',sans-serif}
-.ft-btn-cancel{background:transparent;border:1px solid #2a2a2a;color:#666;padding:10px 16px;border-radius:5px;font-size:12px;cursor:pointer;font-family:'Barlow',sans-serif}
-.ft-btn-cancel:hover{border-color:#f0ede8;color:#f0ede8}
-/* REMINDER CARDS */
-.ft-reminder-card{background:#141414;border:1px solid #222;border-radius:8px;padding:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}
-.ft-reminder-info{flex:1}
-/* TOAST */
-.ft-toast{position:fixed;bottom:22px;right:22px;z-index:700;background:#1a1a1a;border:1px solid #2a2a2a;color:#f0ede8;padding:10px 16px;border-radius:7px;font-size:12px;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;font-family:'Barlow',sans-serif}
-.ft-toast.show{transform:translateY(0);opacity:1}
-.ft-toast.success{border-left:3px solid #1db954}
-.ft-toast.error{border-left:3px solid #e84040}
-@media(max-width:768px){
-  .ft-sidebar{display:none}
-  .ft-stats{grid-template-columns:1fr 1fr}
-  .ft-form-row{grid-template-columns:1fr}
-}
-</style>
-  <div class="ft-login-box">
-    <button class="ft-close-btn" onclick="closeFTLogin()">✕</button>
-    <div class="ft-login-logo">FitTech</div>
-    <div class="ft-login-sub">Admin Login</div>
-    <input type="text" id="ft-user" placeholder="Username"/>
-    <input type="password" id="ft-pass" placeholder="Password"/>
-    <button class="ft-login-btn" onclick="doFTLogin()">ENTER</button>
-    <div id="ft-login-err" style="color:#e84040;font-size:11px;margin-top:8px;min-height:16px"></div>
-  </div>
-</div>
-
-<!-- FT ADMIN APP -->
-<div id="ft-admin">
-  <div class="ft-topbar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="ft-page-title" id="ft-page-title">Dashboard</div>
-    </div>
-    <button class="ft-add-btn" onclick="ftOpenAddClient()" style="width:auto;padding:9px 18px">
-      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-      Add Client
-    </button>
-  </div>
-  <div class="ft-layout">
-    <div class="ft-sidebar">
-      <div class="ft-sidebar-logo">FitTech<span>Client Manager</span></div>
-      <nav style="padding-top:6px">
-        <div class="ft-nav-item active" data-page="dashboard" onclick="ftShowPage('dashboard')">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>Dashboard
-        </div>
-        <div class="ft-nav-item" data-page="clients" onclick="ftShowPage('clients')">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Clients
-        </div>
-        <div class="ft-nav-item" data-page="payments" onclick="ftShowPage('payments')">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M1 7h14"/></svg>Payments
-        </div>
-        <div class="ft-nav-item" data-page="reminders" onclick="ftShowPage('reminders')">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zM8 7v3"/><circle cx="8" cy="11.5" r=".5"/></svg>Monthly Reminders
-        </div>
-      </nav>
-      <div class="ft-sidebar-bottom">
-        <button class="ft-add-btn" onclick="ftOpenAddClient()">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>Add Client
-        </button>
-        <button class="ft-back-btn" onclick="doFTLogout()">← Back to Website</button>
-        <button class="ft-logout-btn" onclick="doFTLogout()">Log Out</button>
-      </div>
-    </div>
-
-    <div class="ft-main">
-      <div class="ft-content">
-
-        <!-- DASHBOARD -->
-        <div id="ft-page-dashboard">
-          <div class="ft-stats">
-            <div class="ft-stat gold"><div class="ft-stat-label">Total Clients</div><div class="ft-stat-num" id="ft-stat-total">0</div></div>
-            <div class="ft-stat green"><div class="ft-stat-label">Active</div><div class="ft-stat-num" id="ft-stat-active">0</div></div>
-            <div class="ft-stat red"><div class="ft-stat-label">Due / Overdue</div><div class="ft-stat-num" id="ft-stat-due">0</div></div>
-            <div class="ft-stat blue"><div class="ft-stat-label">This Month</div><div class="ft-stat-num" id="ft-stat-rev">₹0</div></div>
-            <div class="ft-stat gold"><div class="ft-stat-label">Total Revenue</div><div class="ft-stat-num" id="ft-stat-totalrev">₹0</div></div>
-          </div>
-          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:#f0ede8">Payments Due This Week</div>
-          <div id="ft-due-cards"></div>
-        </div>
-
-        <!-- CLIENTS -->
-        <div id="ft-page-clients" style="display:none">
-          <div class="ft-table-wrap">
-            <div class="ft-table-header">
-              <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#f0ede8">All Clients</div>
-            </div>
-            <div style="overflow-x:auto">
-              <table class="ft-table"><thead><tr><th>Owner</th><th>Gym</th><th>Plan</th><th>Next Payment</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="ft-clients-tbody"></tbody></table>
-            </div>
-          </div>
-        </div>
-
-        <!-- PAYMENTS -->
-        <div id="ft-page-payments" style="display:none">
-          <div class="ft-table-wrap">
-            <div class="ft-table-header"><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#f0ede8">All Payments</div></div>
-            <div style="overflow-x:auto">
-              <table class="ft-table"><thead><tr><th>Client</th><th>Amount</th><th>Plan</th><th>Month</th><th>Date</th></tr></thead>
-              <tbody id="ft-payments-tbody"></tbody></table>
-            </div>
-          </div>
-        </div>
-
-        <!-- REMINDERS -->
-        <div id="ft-page-reminders" style="display:none">
-          <div style="font-size:13px;color:#666;margin-bottom:16px;font-family:'Barlow',sans-serif">Clients with payments due in next 7 days — send them a WhatsApp reminder in one tap.</div>
-          <div id="ft-reminders-list"></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ADD CLIENT MODAL -->
-<div class="ft-modal-wrap" id="ft-client-modal">
-  <div class="ft-modal">
-    <div class="ft-modal-head"><div class="ft-modal-title" id="ft-modal-title">Add Client</div><button class="ft-close-btn" onclick="ftCloseModal('ft-client-modal')" style="position:static">✕</button></div>
-    <div class="ft-modal-body">
-      <input type="hidden" id="ft-edit-id"/>
-      <div class="ft-form-row">
-        <div class="ft-form-group"><label class="ft-form-label">Owner Name *</label><input class="ft-form-input" id="ft-c-name" placeholder="e.g. Sandeep Sir"/></div>
-        <div class="ft-form-group"><label class="ft-form-label">Phone *</label><input class="ft-form-input" id="ft-c-phone" placeholder="10-digit" maxlength="10"/></div>
-      </div>
-      <div class="ft-form-row full">
-        <div class="ft-form-group"><label class="ft-form-label">Gym Name *</label><input class="ft-form-input" id="ft-c-gym" placeholder="e.g. SD Fitness"/></div>
-      </div>
-      <div class="ft-form-row">
-        <div class="ft-form-group"><label class="ft-form-label">Plan *</label>
-          <select class="ft-form-select" id="ft-c-plan">
-            <option value="website">Website Only (₹2,100)</option>
-            <option value="crm">CRM Only (₹1,800)</option>
-            <option value="website-crm" selected>Website + CRM (₹4,500)</option>
-            <option value="maintenance">CRM Maintenance (₹150/mo)</option>
-          </select>
-        </div>
-        <div class="ft-form-group"><label class="ft-form-label">Status</label>
-          <select class="ft-form-select" id="ft-c-status">
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
-      </div>
-      <div class="ft-form-row">
-        <div class="ft-form-group"><label class="ft-form-label">Start Date</label><input class="ft-form-input" type="date" id="ft-c-start"/></div>
-        <div class="ft-form-group"><label class="ft-form-label">Amount Paid (₹)</label><input class="ft-form-input" type="number" id="ft-c-amount" placeholder="e.g. 3300"/></div>
-      </div>
-      <div class="ft-form-row full">
-        <div class="ft-form-group"><label class="ft-form-label">Notes (custom updates, special requirements)</label><input class="ft-form-input" id="ft-c-notes" placeholder="e.g. Needs Marathi content update monthly — extra charge agreed"/></div>
-      </div>
-    </div>
-    <div class="ft-modal-foot"><button class="ft-btn-cancel" onclick="ftCloseModal('ft-client-modal')">Cancel</button><button class="ft-btn-save" onclick="ftSaveClient()">Save Client</button></div>
-  </div>
-</div>
-
-<!-- COLLECT PAYMENT MODAL -->
-<div class="ft-modal-wrap" id="ft-pay-modal">
-  <div class="ft-modal" style="max-width:360px">
-    <div class="ft-modal-head"><div class="ft-modal-title">Collect Payment</div><button class="ft-close-btn" onclick="ftCloseModal('ft-pay-modal')" style="position:static">✕</button></div>
-    <div class="ft-modal-body">
-      <input type="hidden" id="ft-pay-id"/>
-      <div style="font-size:13px;color:#e8a020;margin-bottom:14px;font-family:'Barlow',sans-serif" id="ft-pay-name"></div>
-      <div class="ft-form-row">
-        <div class="ft-form-group"><label class="ft-form-label">Amount (₹)</label><input class="ft-form-input" type="number" id="ft-pay-amount"/></div>
-        <div class="ft-form-group"><label class="ft-form-label">Date</label><input class="ft-form-input" type="date" id="ft-pay-date"/></div>
-      </div>
-    </div>
-    <div class="ft-modal-foot"><button class="ft-btn-cancel" onclick="ftCloseModal('ft-pay-modal')">Cancel</button><button class="ft-btn-save" onclick="ftSavePayment()">Save Payment</button></div>
-  </div>
-</div>
-
-<div class="ft-toast" id="ft-toast"></div>
 </body>
 </html>
